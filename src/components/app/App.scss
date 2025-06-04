@@ -91,6 +91,8 @@
 
     &--done {
       transition: all 0.33s ease;
+      // color: green;
+      // border: 2px solid transparent;
     }
 
     &--del {
@@ -99,13 +101,13 @@
     }
 
     &--done:hover {
-      background-color: green;
+      // background-color: green;
+      color: green;
       transform: scale(1.2);
     }
 
     &--del:hover {
-      transform: rotate(-10deg);
-      transform: translateY(-5px);
+      transform: translateY(-2px);
       transition: transform 0.33s ease;
     }
   }
