@@ -1,0 +1,16 @@
+/*
+- (маятникове качання) Анимация "Качелька" расскачивать элементы
+- animation: swing 5s ease-in-out infinite;
+*/
+
+@keyframes swing {
+  0% {
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 5deg);
+  }
+  50% {
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, -5deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 5deg);
+  }
+}

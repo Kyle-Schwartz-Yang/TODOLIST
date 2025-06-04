@@ -1,0 +1,36 @@
+/*
+- Прозорість, Пульсація
+
+.pulse {
+  animation: pulse 1.5s ease-in-out 0.5s infinite;
+}
+
+.offon {
+  animation: offon 1.2s infinite;
+}
+
+*/
+
+@keyframes offon {
+  // animation: offon 1.2s infinite;
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  //animation: pulse 1.5s ease-in-out 0.5s infinite;
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,31 @@
+@use "./components/shared/assets/styles/config"; // null-style, fonts,
+@use "./components/shared/assets/styles/variables/" as *;
+@use "./components/shared/assets/styles/mixins/" as *;
+
+html {
+  font-size: $f-size-rem;
+  color: $accent;
+}
+
+body {
+  font-family: $font-face;
+  font-size: $f-size-default;
+  color: $white;
+  background-color: $bg-color;
+}
+
+#root {
+  overflow: hidden;
+  min-height: 100%;
+  @include flexbox(flex, null, null, column, null, null);
+}
+
+[class*="__container"] {
+  max-width: 123rem;
+  margin: 0 auto;
+  padding: 0px 1.5rem;
+}
+
+.main {
+  flex: 1 0 auto; // (flex-grow:0; flex-shrink:1; flex-basis:auto;)
+}
