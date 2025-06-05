@@ -1,15 +1,16 @@
 # TODOLIST
 
-> [React, Typescript, Vite, FSD]
-> []
+> [React, Typescript, Vite, FSD] > [UUID, LIBRARY]
 
 ### In this project 🎬
 
-- LocalStorage ✔
 - Додавання задач
 - Видалення задач
 - Редагування задач
+- if(array.length > 3) {show more} (Опціонально)
+- BASKET (Опціонально)
 - Сортування за складностью (Опціонально)
+- LocalStorage (Опціонально)
 - Drag And Drop (Опціонально)
 
 ### START APP 🚀

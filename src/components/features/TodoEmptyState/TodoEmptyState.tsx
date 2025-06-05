@@ -1,7 +1,9 @@
-import doit from "../../shared/assets/images/doit.png";
-import "./Page404.scss";
+import doit from "@shared/assets/images/doit.png";
 
-export default function Page404() {
+// -------------------------------------
+import "./TodoEmptyState.scss";
+
+export default function TodoEmptyState() {
   return (
     <figure className="image-caption">
       <img src={doit} alt={doit} loading="lazy" />

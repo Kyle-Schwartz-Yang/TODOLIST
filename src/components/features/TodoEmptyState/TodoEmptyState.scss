@@ -1,0 +1,59 @@
+@use "@shared/assets/styles/variables/" as *;
+@use "@shared/assets/styles/mixins/" as *;
+@use "@shared/assets/styles/placeholders";
+
+.image-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  max-width: 100%;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+
+  figcaption {
+  }
+}
+
+.scanner-block {
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+  @extend %title;
+
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 700;
+
+  background: linear-gradient(
+    90deg,
+    #f72585 0%,
+    #7209b7 10%,
+    #3a0ca3 20%,
+    #4361ee 30%,
+    #2a2a2a 40%
+  );
+  background-size: 300% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: rainbow-shine 6.6s ease-in-out infinite;
+}
+
+@keyframes rainbow-shine {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
