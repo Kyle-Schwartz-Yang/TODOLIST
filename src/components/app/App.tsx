@@ -6,6 +6,8 @@ import Header from "@components/widgets/Header/Header";
 import Footer from "@components/widgets/Footer/Footer";
 import TodoEmptyState from "../features/TodoEmptyState/TodoEmptyState";
 
+import Checklist from "../shared/kit/atoms/CheckList/CheckList";
+
 // ----------------------------------------------------------------
 import "./App.scss";
 
@@ -21,10 +23,10 @@ interface TodoItem {
 export default function App() {
   const [input, setInput] = useState<string>("");
   const [todo, setTodo] = useState<TodoItem[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputAdd = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    inputAdd.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -56,7 +58,7 @@ export default function App() {
 
     setTodo([elementTodo, ...todo]);
     setInput("");
-    inputRef.current?.focus();
+    inputAdd.current?.focus();
   };
 
   const handleDelete = (id: string) => {
@@ -65,11 +67,11 @@ export default function App() {
 
   const toggleCompele = (id: string) => {
     console.log(id);
-    // setTodo(
-    //   todo.map((item) =>
-    //     item.id === id ? { ...item, complate: !item.complate } : item
-    //   )
-    // );
+    setTodo(
+      todo.map((item) =>
+        item.id === id ? { ...item, complate: !item.complate } : item
+      )
+    );
   };
 
   const toggleIsEdit = (id: string) => {
@@ -78,9 +80,14 @@ export default function App() {
         item.id === id ? { ...item, isEdit: !item.isEdit } : item
       )
     );
+
+    // setTimeout(() => {
+    //   inputEdit.current?.focus();
+    // }, 0);
   };
 
   const onEdit = (value: string, id: string) => {
+    inputAdd.current?.focus();
     setTodo(
       todo.map((item) =>
         item.id === id ? { ...item, text: value, isEdit: !item.isEdit } : item
@@ -102,11 +109,16 @@ export default function App() {
               <input
                 type="text"
                 placeholder="Type here..."
-                ref={inputRef}
+                ref={inputAdd}
                 value={input}
                 onChange={(e) => onChangeValue(e.target.value)}
               />
-              <button type="submit">ADD</button>
+
+              <button className="Btn" type="submit">
+                <div className="sign">+</div>
+
+                <div className="text">Add</div>
+              </button>
             </form>
 
             {todo.length <= 0 && <TodoEmptyState></TodoEmptyState>}
@@ -119,6 +131,7 @@ export default function App() {
                     title={item.text}
                     id={item.id}
                     onEdit={onEdit}
+                    isEdit={item.isEdit}
                   ></EditTodoItem>
                 ) : (
                   <TodoItem
@@ -152,11 +165,15 @@ interface TodoItemProps {
 
 function TodoItem(props: TodoItemProps) {
   return (
-    <li
-      className={`todo__item ${props.complete ? "done" : ""}`}
-      onClick={() => props.toggleComplete(props.id)}
-    >
-      <div className="todo__task-title">{props.title}</div>
+    <li className={`todo__item ${props.complete ? "done" : ""}`}>
+      {/* <div
+        className="todo__task-title"
+        onClick={() => props.toggleComplete(props.id)}
+      >
+        {props.title}
+      </div> */}
+
+      <Checklist title={props.title} id={props.id}></Checklist>
 
       <div className="todo__buttons">
         <button
@@ -182,13 +199,28 @@ interface EditTodoItemProps {
   title: string;
   id: string;
   onEdit: (value: string, id: string) => void;
+  isEdit: boolean;
+  // inputEdit: RefObject<HTMLInputElement | null>;
 }
 
 function EditTodoItem(props: EditTodoItemProps) {
   const [input, setInput] = useState<string>(props.title);
+  const inputEdit = useRef<HTMLInputElement>(null);
 
   const onChangeValue = (value: string) => {
     setInput(value);
+  };
+
+  useEffect(() => {
+    if (props.isEdit) {
+      inputEdit.current?.focus();
+    }
+  }, [props.isEdit]);
+
+  const onDone = (event: React.KeyboardEvent): void => {
+    if (event.key === "Enter") {
+      props.onEdit(input, props.id);
+    }
   };
 
   return (
@@ -197,8 +229,10 @@ function EditTodoItem(props: EditTodoItemProps) {
         type="text"
         placeholder="Change value..."
         value={input}
+        ref={inputEdit}
         onChange={(e) => onChangeValue(e.target.value)}
         className="todo__input-edit"
+        onKeyDown={onDone}
       />
 
       <div className="todo__buttons">
