@@ -1,17 +1,18 @@
 # TODOLIST
 
-> [React, Typescript, Vite, FSD] > [UUID, LIBRARY]
+> [React, Typescript, Vite, FSD] > [uuid, react-toastify, classnames, react-router]
 
 ### In this project 🎬
 
-- Додавання задач
-- Видалення задач
-- Редагування задач
-- if(array.length > 3) {show more} (Опціонально)
-- BASKET (Опціонально)
-- Сортування за складностью (Опціонально)
-- LocalStorage (Опціонально)
-- Drag And Drop (Опціонально)
+- Додавання задач ✔
+- Видалення задач ✔
+- Редагування задач ✔
+- Сортування за складностью [?Optional]
+- LocalStorage [?Optional] ✔
+- Drag And Drop [?Optional]
+- Mobile Adaptive
+- Dark theme
+- React router [?Optional]
 
 ### START APP 🚀
 
