@@ -7,6 +7,7 @@ interface ItemTodoProps {
   handleDelete: (id: string) => void;
   toggleComplete: (id: string) => void;
   toggleIsEdit: (id: string) => void;
+  setIsOpenModal: (isOpen: boolean) => void;
 }
 
 export default function ItemTodo(props: ItemTodoProps) {
@@ -57,7 +58,8 @@ export default function ItemTodo(props: ItemTodoProps) {
         <button
           aria-label="Delete item"
           className="delete-button  "
-          onClick={() => props.handleDelete(props.id)}
+          // onClick={() => props.handleDelete(props.id)}
+          onClick={() => props.setIsOpenModal(true)}
         >
           <svg
             className="trash-svg"

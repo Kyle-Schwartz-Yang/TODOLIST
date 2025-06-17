@@ -11,6 +11,9 @@ import TaskList from "../features/TaskList/TaskList";
 
 import TodoEmptyState from "../features/TodoEmptyState/TodoEmptyState";
 
+import Modal from "../shared/kit/molecules/modal/Modal";
+import Portal from "../shared/kit/templates/portal/Portal";
+
 // ----------------------------------------------------------------
 import "./App.scss";
 
@@ -26,6 +29,9 @@ interface TodoItem {
 export default function App() {
   const [input, setInput] = useState<string>("");
   const [todo, setTodo] = useState<TodoItem[]>([]);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [count, setCount] = useState(0);
+  // const [isOpenModal, setIsOpenModal] = useState(false);
   const inputAdd = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -33,7 +39,11 @@ export default function App() {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setTodo((prev) => prev.slice(1)); // прибирає перший елемент
+        if (isOpenModal) {
+          setIsOpenModal(false); // Закриваємо модалку
+        } else {
+          setTodo((prev) => prev.slice(1)); // Видаляємо задачу
+        }
       }
     };
 
@@ -42,7 +52,7 @@ export default function App() {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [isOpenModal]);
 
   // Завантажити з localStorage при старті
   useEffect(() => {
@@ -55,6 +65,7 @@ export default function App() {
   // Зберігати в localStorage кожного разу, коли todo змінюється
   useEffect(() => {
     localStorage.setItem("todo", JSON.stringify(todo));
+    setCount(todo.length);
   }, [todo]);
 
   const onChangeValue = (value: string) => {
@@ -129,11 +140,20 @@ export default function App() {
   return (
     <>
       <Header></Header>
+
+      <button
+        type="button"
+        style={{ padding: 20, backgroundColor: "blue" }}
+        onClick={() => setIsOpenModal(true)}
+      >
+        Модальное окно
+      </button>
+
       <main className="main">
         <section className="todo">
           <div className="todo__container">
             <h1 className="todo__title">
-              T❤DO<span>LIST </span>
+              T❤DO<span>LIST</span> #{count}
             </h1>
 
             <AddTodoForm
@@ -142,6 +162,7 @@ export default function App() {
               handleCreateTask={handleCreateTask}
               onChangeValue={onChangeValue}
             ></AddTodoForm>
+
             {todo.length <= 0 && <TodoEmptyState></TodoEmptyState>}
             <TaskList
               todos={todo}
@@ -149,11 +170,21 @@ export default function App() {
               toggleComplete={toggleComplete}
               toggleIsEdit={toggleIsEdit}
               onEdit={onEdit}
+              setIsOpenModal={setIsOpenModal}
             ></TaskList>
           </div>
         </section>
       </main>
       <Footer></Footer>
+      {
+        <Portal>
+          {isOpenModal && (
+            <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
+              <p>Lorem, ipsum dolor.</p>
+            </Modal>
+          )}
+        </Portal>
+      }
       <ToastContainer
         position="top-right"
         autoClose={1000}

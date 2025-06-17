@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 
+import "./EditTodo.scss";
+
 interface Props {
   title: string;
   id: string;
@@ -46,7 +48,7 @@ export default function EditTodoItem(props: Props) {
   };
 
   return (
-    <li className={`todo__item`}>
+    <li className="todo__item todo__item-edit">
       <input
         type="text"
         placeholder="Change value..."
@@ -58,12 +60,16 @@ export default function EditTodoItem(props: Props) {
       />
 
       <div className="todo__buttons">
+        {/* <button type="button" className="todo__button" onClick={handleConfirm}>
+          Ok
+        </button> */}
         <button
+          className="Btn button__edit"
           type="button"
-          className="todo__button todo__button--done"
           onClick={handleConfirm}
         >
-          Ok
+          <span className="sign">✔</span>
+          <span className="text">Edit</span>
         </button>
       </div>
     </li>
