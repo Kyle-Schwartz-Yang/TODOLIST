@@ -14,7 +14,7 @@ interface Props {
   toggleComplete: (id: string) => void;
   toggleIsEdit: (id: string) => void;
   onEdit: (value: string, id: string) => void;
-  setIsOpenModal: (isOpen: boolean) => void;
+  openConfirmTaskModal: (id: string) => void;
 }
 
 export default function TaskList(props: Props) {
@@ -39,7 +39,7 @@ export default function TaskList(props: Props) {
               handleDelete={props.handleDelete}
               toggleComplete={props.toggleComplete}
               toggleIsEdit={props.toggleIsEdit}
-              setIsOpenModal={props.setIsOpenModal}
+              openConfirmTaskModal={props.openConfirmTaskModal}
             />
           )
         )}

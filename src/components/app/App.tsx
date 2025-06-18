@@ -11,7 +11,8 @@ import TaskList from "../features/TaskList/TaskList";
 
 import TodoEmptyState from "../features/TodoEmptyState/TodoEmptyState";
 
-import Modal from "../shared/kit/molecules/modal/Modal";
+import ConfirmTaskModal from "../features/ConfirmTaskModal/ConfirmTaskModal";
+
 import Portal from "../shared/kit/templates/portal/Portal";
 
 // ----------------------------------------------------------------
@@ -29,19 +30,25 @@ interface TodoItem {
 export default function App() {
   const [input, setInput] = useState<string>("");
   const [todo, setTodo] = useState<TodoItem[]>([]);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [taskIdToDelete, setTaskIdToDelete] = useState<string>("");
   const [count, setCount] = useState(0);
   // const [isOpenModal, setIsOpenModal] = useState(false);
   const inputAdd = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputAdd.current?.focus();
+    // inputAdd.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         if (isOpenModal) {
           setIsOpenModal(false); // Закриваємо модалку
         } else {
+          const todolast = todo.slice(1);
+          console.log(todolast);
+
+          // openConfirmTaskModal(taskIdToDelete);
+          // setIsOpenModal(true);
           setTodo((prev) => prev.slice(1)); // Видаляємо задачу
         }
       }
@@ -94,9 +101,16 @@ export default function App() {
     inputAdd.current?.focus();
   };
 
-  const handleDelete = (id: string) => {
-    setTodo(todo.filter((item) => item.id !== id));
-    // toast("⚡ Звільнено з космічної станції");
+  const openConfirmTaskModal = (id: string) => {
+    setTaskIdToDelete(id);
+    setIsOpenModal(true);
+  };
+
+  const handleDelete = () => {
+    setTaskIdToDelete("");
+    setIsOpenModal(false);
+    toast.success("DONE!");
+    setTodo(todo.filter((item) => item.id !== taskIdToDelete));
   };
 
   const toggleComplete = (id: string) => {
@@ -141,14 +155,6 @@ export default function App() {
     <>
       <Header></Header>
 
-      <button
-        type="button"
-        style={{ padding: 20, backgroundColor: "blue" }}
-        onClick={() => setIsOpenModal(true)}
-      >
-        Модальное окно
-      </button>
-
       <main className="main">
         <section className="todo">
           <div className="todo__container">
@@ -170,7 +176,7 @@ export default function App() {
               toggleComplete={toggleComplete}
               toggleIsEdit={toggleIsEdit}
               onEdit={onEdit}
-              setIsOpenModal={setIsOpenModal}
+              openConfirmTaskModal={openConfirmTaskModal}
             ></TaskList>
           </div>
         </section>
@@ -179,9 +185,18 @@ export default function App() {
       {
         <Portal>
           {isOpenModal && (
-            <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
-              <p>Lorem, ipsum dolor.</p>
-            </Modal>
+            <ConfirmTaskModal
+              isOpenModal={isOpenModal}
+              setIsOpenModal={setIsOpenModal}
+              handleDelete={handleDelete}
+            />
+            // <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
+            //   <p>Lorem, ipsum dolor.</p>
+            //   <div className="buttons__modal">
+            //     <button onClick={handleDelete}>yes</button>
+            //     <button onClick={() => setIsOpenModal(false)}>no</button>
+            //   </div>
+            // </Modal>
           )}
         </Portal>
       }

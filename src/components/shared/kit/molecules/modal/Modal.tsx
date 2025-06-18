@@ -21,7 +21,7 @@ export default class Modal extends React.Component<ModalProps> {
             type="button"
             onClick={this.props.onClose}
           >
-            X
+            ❌
           </button>
           {this.props.children}
         </div>
