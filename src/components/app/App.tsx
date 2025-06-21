@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,6 +14,7 @@ import TodoEmptyState from "../features/TodoEmptyState/TodoEmptyState";
 import ConfirmTaskModal from "../features/ConfirmTaskModal/ConfirmTaskModal";
 
 import Portal from "../shared/kit/templates/portal/Portal";
+import useControlledInput from "../shared/hooks/useControlledInput/useControlledInput";
 
 // ----------------------------------------------------------------
 import "./App.scss";
@@ -28,27 +29,25 @@ interface TodoItem {
 }
 
 export default function App() {
-  const [input, setInput] = useState<string>("");
+  // -----------------------------------------
+  const title = useControlledInput("");
+  // -----------------------------------------
+  const [count, setCount] = useState<number>(0);
   const [todo, setTodo] = useState<TodoItem[]>([]);
+
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [taskIdToDelete, setTaskIdToDelete] = useState<string>("");
-  const [count, setCount] = useState(0);
-  // const [isOpenModal, setIsOpenModal] = useState(false);
+  // --------------------------------------------------
   const inputAdd = useRef<HTMLInputElement>(null);
+  // --------------------------------------------------
 
+  // Escape [modal and delete]
   useEffect(() => {
-    // inputAdd.current?.focus();
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         if (isOpenModal) {
           setIsOpenModal(false); // Закриваємо модалку
         } else {
-          const todolast = todo.slice(1);
-          console.log(todolast);
-
-          // openConfirmTaskModal(taskIdToDelete);
-          // setIsOpenModal(true);
           setTodo((prev) => prev.slice(1)); // Видаляємо задачу
         }
       }
@@ -61,28 +60,28 @@ export default function App() {
     };
   }, [isOpenModal]);
 
-  // Завантажити з localStorage при старті
+  // localStorage - show todo start APP
   useEffect(() => {
     const saved = localStorage.getItem("todo");
     if (saved) {
-      setTodo(JSON.parse(saved));
+      const stringTransforinArray: [] = JSON.parse(saved);
+      setTodo(stringTransforinArray);
     }
   }, []);
 
-  // Зберігати в localStorage кожного разу, коли todo змінюється
+  // localStorage - save change todo
   useEffect(() => {
-    localStorage.setItem("todo", JSON.stringify(todo));
+    const arrayTransforminString = JSON.stringify(todo);
+    localStorage.setItem("todo", arrayTransforminString);
     setCount(todo.length);
   }, [todo]);
 
-  const onChangeValue = (value: string) => {
-    setInput(value);
-  };
+  // -----------------------------------------------------
 
   const handleCreateTask = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!input.trim()) {
+    if (!title.value.trim()) {
       toast.error("⭕ Oh no... input empty", {
         icon: false,
       });
@@ -91,13 +90,14 @@ export default function App() {
     // -----------------------------------
     const elementTodo: TodoItem = {
       id: uuidv4(),
-      text: input,
+      text: title.value,
       complete: false,
       isEdit: false,
     };
 
     setTodo([elementTodo, ...todo]);
-    setInput("");
+    title.reset();
+
     inputAdd.current?.focus();
   };
 
@@ -163,10 +163,10 @@ export default function App() {
             </h1>
 
             <AddTodoForm
-              input={input}
+              input={title.value}
               inputAdd={inputAdd}
               handleCreateTask={handleCreateTask}
-              onChangeValue={onChangeValue}
+              onChange={title.onChange}
             ></AddTodoForm>
 
             {todo.length <= 0 && <TodoEmptyState></TodoEmptyState>}
@@ -190,13 +190,6 @@ export default function App() {
               setIsOpenModal={setIsOpenModal}
               handleDelete={handleDelete}
             />
-            // <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
-            //   <p>Lorem, ipsum dolor.</p>
-            //   <div className="buttons__modal">
-            //     <button onClick={handleDelete}>yes</button>
-            //     <button onClick={() => setIsOpenModal(false)}>no</button>
-            //   </div>
-            // </Modal>
           )}
         </Portal>
       }
