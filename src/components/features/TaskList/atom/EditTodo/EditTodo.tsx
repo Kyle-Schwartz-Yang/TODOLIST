@@ -2,16 +2,17 @@ import { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import "./EditTodo.scss";
+import { useTodo } from "../../../Todo/context/useTodo";
 
 interface Props {
   title: string;
   id: string;
-  onEdit: (value: string, id: string) => void;
   isEdit: boolean;
-  // inputEdit: RefObject<HTMLInputElement | null>;
 }
 
 export default function EditTodoItem(props: Props) {
+  const { onEdit } = useTodo();
+
   const [input, setInput] = useState<string>(props.title);
   const inputEdit = useRef<HTMLInputElement>(null);
 
@@ -31,7 +32,7 @@ export default function EditTodoItem(props: Props) {
       inputEdit.current?.focus();
       return false;
     }
-    props.onEdit(input, props.id);
+    onEdit(input, props.id);
     return true;
   };
 

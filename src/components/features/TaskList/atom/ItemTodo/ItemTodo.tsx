@@ -1,45 +1,29 @@
 import Checklist from "@shared/kit/atoms/CheckList/CheckList";
+import { useTodo } from "../../../Todo/context/useTodo";
 
 interface ItemTodoProps {
   title: string;
   id: string;
   complete: boolean;
-  handleDelete: (id: string) => void;
-  toggleComplete: (id: string) => void;
-  toggleIsEdit: (id: string) => void;
-  openConfirmTaskModal: (id: string) => void;
 }
 
 export default function ItemTodo(props: ItemTodoProps) {
+  const { toggleComplete, toggleIsEdit, openConfirmTaskModal } = useTodo();
+
   return (
     <li className={`todo__item ${props.complete ? "done" : ""}`}>
-      {/* <div
-        className="todo__task-title"
-        onClick={() => props.toggleComplete(props.id)}
-      >
-        {props.title}
-      </div> */}
-
       <Checklist
         title={props.title}
         id={props.id}
         complete={props.complete}
-        toggleComplete={props.toggleComplete}
+        toggleComplete={toggleComplete}
       ></Checklist>
 
       <div className="todo__buttons">
-        {/* <button
-          type="button"
-          className="todo__button todo__button--done"
-          onClick={() => props.toggleIsEdit(props.id)}
-        >
-          Edit
-        </button> */}
-
         <button
           className="editBtn"
           type="button"
-          onClick={() => props.toggleIsEdit(props.id)}
+          onClick={() => toggleIsEdit(props.id)}
           aria-label="Edit Task"
         >
           <svg height="1em" viewBox="0 0 512 512">
@@ -47,19 +31,11 @@ export default function ItemTodo(props: ItemTodoProps) {
           </svg>
         </button>
 
-        {/* <button
-          type="button"
-          className="todo__button todo__button--del"
-          onClick={() => props.handleDelete(props.id)}
-        >
-          Delete
-        </button> */}
-
         <button
           aria-label="Delete item"
-          className="delete-button  "
+          className="delete-button"
           // onClick={() => props.handleDelete(props.id)}
-          onClick={() => props.openConfirmTaskModal(props.id)}
+          onClick={() => openConfirmTaskModal(props.id)}
         >
           <svg
             className="trash-svg"

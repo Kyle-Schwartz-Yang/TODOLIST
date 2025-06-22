@@ -16,9 +16,11 @@ import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 //----------------------------------------------
 import useControlledInput from "@shared/hooks/useControlledInput/useControlledInput";
+import { useTodo } from "../Todo/context/useTodo";
 //----------------------------------------------
 
-export default function AddTodoForm({ setTodos, todos }: AddTodoFormProps) {
+export default function AddTodoForm() {
+  const { todos, setTodos } = useTodo();
   const input = useControlledInput("");
 
   const handleCreateTask = (e: React.FormEvent<HTMLFormElement>) => {
