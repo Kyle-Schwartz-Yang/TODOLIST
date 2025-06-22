@@ -1,24 +1,54 @@
-interface Props {
-  input: string;
-  handleCreateTask: (e: React.FormEvent<HTMLFormElement>) => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  inputAdd: React.RefObject<HTMLInputElement | null>;
+interface TodoItem {
+  id: string;
+  text: string;
+  complete: boolean;
+  isEdit: boolean;
 }
 
-export default function AddTodoForm({
-  input,
-  onChange,
-  inputAdd,
-  handleCreateTask,
-}: Props) {
+interface AddTodoFormProps {
+  todos: TodoItem[];
+  setTodos: (todos: TodoItem[]) => void;
+}
+
+import React from "react";
+//----------------------------------------------
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
+//----------------------------------------------
+import useControlledInput from "@shared/hooks/useControlledInput/useControlledInput";
+//----------------------------------------------
+
+export default function AddTodoForm({ setTodos, todos }: AddTodoFormProps) {
+  const input = useControlledInput("");
+
+  const handleCreateTask = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!input.value.trim()) {
+      toast.error("⭕ Oh no... input empty", {
+        icon: false,
+      });
+      return;
+    }
+    // -----------------------------------
+    const elementTodo: TodoItem = {
+      id: uuidv4(),
+      text: input.value,
+      complete: false,
+      isEdit: false,
+    };
+
+    setTodos([elementTodo, ...todos]);
+    input.reset();
+  };
+
   return (
     <form className="todo__form" onSubmit={handleCreateTask}>
       <input
         type="text"
         placeholder="Type here..."
-        ref={inputAdd}
-        value={input}
-        onChange={onChange}
+        value={input.value}
+        onChange={input.onChange}
         className="todo__input"
       />
       <button className="Btn" type="submit">
