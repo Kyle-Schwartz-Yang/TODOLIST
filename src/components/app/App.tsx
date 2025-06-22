@@ -170,6 +170,7 @@ export default function App() {
             ></AddTodoForm>
 
             {todo.length <= 0 && <TodoEmptyState></TodoEmptyState>}
+
             <TaskList
               todos={todo}
               handleDelete={handleDelete}
