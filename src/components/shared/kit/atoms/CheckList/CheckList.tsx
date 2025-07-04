@@ -1,4 +1,4 @@
-import "./Checklist.scss";
+import "./CheckList.scss";
 
 interface Props {
   title: string;
