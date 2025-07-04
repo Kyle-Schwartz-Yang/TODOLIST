@@ -12,7 +12,7 @@ export interface TodoContextType {
   todos: TodoItem[];
   setTodos: (value: TodoItem[]) => void;
   // setTodos: React.Dispatch<React.SetStateAction<TodoItem[]>>;
-  handleDelete: (id: string) => void;
+  handleDelete: () => void;
   toggleComplete: (id: string) => void;
   toggleIsEdit: (id: string) => void;
   onEdit: (value: string, id: string) => void;

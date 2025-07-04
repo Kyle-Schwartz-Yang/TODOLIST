@@ -9,7 +9,6 @@ import Toster from "@shared/kit/molecules/toster/Toster";
 import TodoProvider from "../features/Todo/context/TodoProvider";
 // ----------------------------------------------------------------
 import "./App.scss";
-
 // =================================================================
 
 export default function App() {
