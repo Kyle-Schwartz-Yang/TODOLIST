@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------
-// import Header from "@components/widgets/Header/Header";
+import Header from "@components/widgets/Header/Header";
 import Footer from "@components/widgets/Footer/Footer";
 import Main from "../features/Main/Main";
 import { TodoModals } from "../features/TodoModals/TodoModals";
@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <>
-      {/* <Header></Header> */}
+      <Header></Header>
       <TodoProvider>
         <Main></Main>
         <TodoModals></TodoModals>
