@@ -31,6 +31,6 @@
 ```bash
   npm install
   npm run dev
-  npm run build
-  npm run preview
+  npm run build # GitHub Actins ✔
+  npm run preview # GitHub Pages ✔
 ```
