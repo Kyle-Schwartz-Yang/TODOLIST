@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 //----------------------------------------------
 import useControlledInput from "@shared/hooks/useControlledInput/useControlledInput";
-import { useTodo } from "../Todo/context/useTodo";
+import { useTodo } from "../context/useTodo";
 //----------------------------------------------
 
 interface TodoItem {

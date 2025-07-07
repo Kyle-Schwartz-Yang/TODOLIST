@@ -11,7 +11,7 @@ export default function Main() {
       <section className="todo">
         <div className="todo__container">
           <h1 className="todo__title">
-            You completed <span>{count}</span> task(s)
+            created: <span>{count}</span>
           </h1>
 
           <AddTodoForm></AddTodoForm>

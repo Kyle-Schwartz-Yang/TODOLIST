@@ -1,11 +1,11 @@
-import { useTodo } from "../Todo/context/useTodo";
+import { useTodo } from "../context/useTodo";
 
 import Portal from "@shared/kit/templates/portal/Portal";
 import Modal from "@shared/kit/molecules/modal/Modal";
 
-import styled from "./TodoModals.module.scss";
+import styled from "./TodoConfirmModal.module.scss";
 
-export const TodoModals = () => {
+export const TodoConfirmModal = () => {
   const { isOpenModal, setIsOpenModal, handleDelete } = useTodo();
 
   return (

@@ -6,7 +6,7 @@ import { TodoModals } from "../features/TodoModals/TodoModals";
 
 import Toster from "@shared/kit/molecules/toster/Toster";
 // ----------------------------------------------------------------
-import TodoProvider from "../features/Todo/context/TodoProvider";
+import TodoProvider from "@features/Todo/context/TodoProvider";
 // ----------------------------------------------------------------
 import "./App.scss";
 // =================================================================

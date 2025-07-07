@@ -82,17 +82,19 @@
 
   // .todo__title
   &__title {
-    font-size: 3rem;
+    font-size: 2rem;
 
-    @extend %title;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    // @extend %title;
+    // text-transform: uppercase;
+    color: silver;
+    letter-spacing: 0.5rem;
     position: relative;
-    text-align: center;
+    // text-align: center;
     & span {
+      color: white;
       background-color: $main-color;
-      padding: 0rem 0.5rem;
-      letter-spacing: -0.2rem;
+      padding: 0rem 1rem;
+      // letter-spacing: -0.2rem;
     }
   }
 
