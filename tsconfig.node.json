@@ -7,17 +7,6 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": ["src/components/*"],
-      "@app/*": ["src/components/app/*"],
-      "@pages/*": ["src/components/pages/*"],
-      "@shared/*": ["src/components/shared/*"],
-      "@widgets/*": ["src/components/widgets/*"],
-      "@features/*": ["src/components/features/*"],
-      "@entities/*": ["src/components/entities/*"]
-    },
-
     "jsx": "react-jsx",
 
     "allowJs": true,
@@ -38,5 +27,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src/**/*"]
+  "include": ["src"]
 }

@@ -1,12 +1,13 @@
 // ----------------------------------------------------------------
 import Header from "@components/widgets/Header/Header";
 import Footer from "@components/widgets/Footer/Footer";
-import Main from "../features/Main/Main";
-import { TodoModals } from "../features/TodoModals/TodoModals";
+import TodoBoard from "@widgets/TodoBoard/TodoBoard";
+import TodoConfirmModal from "@features/TodoConfirmModal/TodoConfirmModal";
 
-import Toster from "@shared/kit/molecules/toster/Toster";
+import Toster from "@shared/ui/molecules/toster/Toster";
 // ----------------------------------------------------------------
-import TodoProvider from "@features/Todo/context/TodoProvider";
+import TodoProvider from "@features/todos/context/TodoProvider";
+
 // ----------------------------------------------------------------
 import "./App.scss";
 // =================================================================
@@ -18,8 +19,8 @@ export default function App() {
     <>
       <Header></Header>
       <TodoProvider>
-        <Main></Main>
-        <TodoModals></TodoModals>
+        <TodoBoard></TodoBoard>
+        <TodoConfirmModal></TodoConfirmModal>
       </TodoProvider>
       <Footer></Footer>
       {/* -------------------------- */}

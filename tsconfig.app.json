@@ -7,6 +7,17 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@app/*": ["components/app/*"],
+      "@pages/*": ["components/pages/*"],
+      "@shared/*": ["components/shared/*"],
+      "@widgets/*": ["components/widgets/*"],
+      "@features/*": ["components/features/*"],
+      "@entities/*": ["components/entities/*"]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

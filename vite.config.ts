@@ -9,9 +9,10 @@ export default defineConfig({
       "@components": "/src/components",
       "@app": "/src/components/app",
       "@pages": "/src/components/pages",
-      "@shared": "/src/components/shared",
       "@widgets": "/src/components/widgets",
       "@features": "/src/components/features",
+      "@entities": "/src/components/entities",
+      "@shared": "/src/components/shared",
     },
   },
 });

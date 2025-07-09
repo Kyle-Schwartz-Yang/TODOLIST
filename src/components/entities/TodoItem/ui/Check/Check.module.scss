@@ -1,0 +1,38 @@
+.label {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  & input {
+    display: none;
+  }
+
+  // input:checked {
+  //   background-color: red;
+  // }
+
+  & svg {
+    overflow: visible;
+    width: 20px;
+    height: 20px;
+    // background-color: red;
+  }
+
+  & input:checked ~ svg .path {
+    stroke-dasharray: 70.5096664428711 9999999;
+    stroke-dashoffset: -262.2723388671875;
+  }
+}
+
+.path {
+  fill: none;
+  stroke: #5d9948;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+  stroke-dasharray: 241 9999999;
+  stroke-dashoffset: 0;
+}
