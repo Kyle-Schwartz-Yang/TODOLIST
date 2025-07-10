@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 
-// import "./EditTodo.scss";
 import useTodo from "@features/todos/context/useTodo";
+
+import { Confirm } from "@entities/TodoEdit/ui";
+
+import styled from "./TodoEdit.module.scss";
 
 interface Props {
   title: string;
@@ -49,30 +52,18 @@ export default function TodoEdit(props: Props) {
   };
 
   return (
-    <li className="todo__item todo__item-edit">
+    <li className={`${styled.item} ${props.isEdit ? styled.itemEdit : ""}`}>
       <input
         type="text"
         placeholder="Change value..."
         value={input}
         ref={inputEdit}
         onChange={(e) => onChangeValue(e.target.value)}
-        className="todo__input-edit"
+        className={styled.itemInput}
         onKeyDown={handleKeyPress}
       />
 
-      <div className="todo__buttons">
-        {/* <button type="button" className="todo__button" onClick={handleConfirm}>
-          Ok
-        </button> */}
-        <button
-          className="Btn button__edit"
-          type="button"
-          onClick={handleConfirm}
-        >
-          <span className="sign">✔</span>
-          <span className="text">Edit</span>
-        </button>
-      </div>
+      <Confirm handleConfirm={handleConfirm}></Confirm>
     </li>
   );
 }

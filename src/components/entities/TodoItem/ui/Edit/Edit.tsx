@@ -1,4 +1,4 @@
-import "./Edit.scss";
+import styled from "./Edit.module.scss";
 
 interface Props {
   id: string;
@@ -8,7 +8,7 @@ interface Props {
 export default function Edit({ toggleIsEdit, id }: Props) {
   return (
     <button
-      className="edit"
+      className={styled.edit}
       type="button"
       onClick={() => toggleIsEdit(id)}
       aria-label="Edit Task"

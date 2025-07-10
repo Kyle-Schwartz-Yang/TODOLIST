@@ -1,0 +1,53 @@
+@use "@shared/assets/styles/variables/" as *;
+@use "@shared/assets/styles/mixins/" as *;
+@use "@shared/assets/styles/placeholders";
+
+.button {
+  position: relative;
+  border: none;
+  border-radius: 0px;
+  @include flexbox(flex, flex-start, center);
+  @extend %title;
+  font-size: 2rem;
+  width: 60px;
+  color: $white;
+
+  cursor: pointer;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  background-color: $accent;
+
+  &:hover {
+    width: 125px;
+    border-radius: 0px;
+    transition-duration: 0.3s;
+  }
+
+  &:hover &Sign {
+    width: 30%;
+    transition-duration: 0.3s;
+    padding-left: 20px;
+  }
+
+  &:hover &Text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.3s;
+    padding-right: 20px;
+  }
+
+  &Sign {
+    @include flexbox(flex, center, center);
+    width: 100%;
+    font-size: 3rem;
+    transition-duration: 0.3s;
+  }
+
+  &Text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    transition-duration: 0.3s;
+  }
+}

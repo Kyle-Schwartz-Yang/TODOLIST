@@ -1,0 +1,31 @@
+@use "@shared/assets/styles/variables/" as *;
+@use "@shared/assets/styles/mixins/" as *;
+
+.item {
+  @include flexbox(flex, space-between, center);
+  border-radius: 1rem;
+  max-height: 8.5rem;
+  min-height: 8.5rem;
+  padding: 1.5rem 2rem;
+  font-size: 2.5rem;
+  box-shadow: 0px 1px 10px rgb(0, 0, 0);
+
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+
+  &Done {
+    opacity: 0.3;
+    text-decoration: line-through;
+    border: 2px solid $success;
+  }
+
+  &Edit {
+    border: 2px solid $attention;
+  }
+
+  &Buttons {
+    display: flex;
+    gap: 2rem;
+  }
+}

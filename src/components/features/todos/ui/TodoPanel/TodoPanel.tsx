@@ -3,9 +3,11 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 //----------------------------------------------
-import Submit from "./ui/CreateBtn/CreateBtn";
+import Submit from "./ui/AddButton/AddButton";
 import useControlledInput from "@shared/hooks/useControlledInput/useControlledInput";
-import useTodo from "../../context/useTodo";
+import useTodo from "@features/todos/context/useTodo";
+
+import styled from "./TodoPanel.module.scss";
 //----------------------------------------------
 
 interface TodoItem {
@@ -41,13 +43,13 @@ export default function TodoPanel() {
   };
 
   return (
-    <form className="todo__form" onSubmit={handleCreateTask}>
+    <form className={styled.form} onSubmit={handleCreateTask}>
       <input
         type="text"
         placeholder="Type here..."
         value={input.value}
         onChange={input.onChange}
-        className="todo__input"
+        className={styled.formInput}
       />
       <Submit></Submit>
     </form>
