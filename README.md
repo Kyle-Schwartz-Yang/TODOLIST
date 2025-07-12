@@ -1,6 +1,10 @@
 # TODOLIST
 
-> [React, Typescript, Vite, FSD] > [uuid, react-toastify, classnames, react-router]
+- [React, Typescript, VITE]
+- [uuid, react-toastify]
+- [React Context]
+
+> 💡 FSD principles are not respected
 
 ### In this project 🎬
 
@@ -10,6 +14,7 @@
 - LocalStorage [?Optional] ✔
 - Зробити лічильник, кількість створенних задач. [?Optional] ✔
 - Підтвердження на видалення (модал) [?Optional] ✔
+- Pinned tasks [?Optional]
 
 ### START APP 🚀
 

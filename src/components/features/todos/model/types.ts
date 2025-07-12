@@ -3,6 +3,7 @@ export interface TodoItem {
   text: string;
   complete: boolean;
   isEdit: boolean;
+  pinned: boolean;
 }
 
 export interface TodoContextType {
@@ -16,5 +17,6 @@ export interface TodoContextType {
   toggleComplete: (id: string) => void;
   toggleIsEdit: (id: string) => void;
   onEdit: (value: string, id: string) => void;
+  onChangePinned: (id: TodoItem["id"]) => void; // Така типізація краще ?
   openConfirmTaskModal: (id: string) => void;
 }

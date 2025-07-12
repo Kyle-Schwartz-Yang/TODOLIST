@@ -103,6 +103,15 @@ export default function TodoProvider({ children }: TodoProviderProps) {
     );
   };
 
+  const onChangePinned = (id: string) => {
+    console.log("pinned");
+    setTodos(
+      todos.map((item) =>
+        item.id === id ? { ...item, pinned: !item.pinned } : item
+      )
+    );
+  };
+
   const value: TodoContextType = {
     count,
     isOpenModal,
@@ -114,6 +123,7 @@ export default function TodoProvider({ children }: TodoProviderProps) {
     toggleComplete,
     toggleIsEdit,
     onEdit,
+    onChangePinned,
   };
 
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;

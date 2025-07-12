@@ -7,10 +7,12 @@ interface Props {
   id: string;
   title: string;
   complete: boolean;
+  pinned: boolean;
 }
 
-export default function TodoItem({ id, title, complete }: Props) {
-  const { toggleComplete, toggleIsEdit, openConfirmTaskModal } = useTodo();
+export default function TodoItem({ id, title, complete, pinned }: Props) {
+  const { toggleComplete, toggleIsEdit, openConfirmTaskModal, onChangePinned } =
+    useTodo();
 
   return (
     <li className={`${styled.item} ${complete ? styled.itemDone : ""}`}>
@@ -24,6 +26,12 @@ export default function TodoItem({ id, title, complete }: Props) {
         <Edit id={id} toggleIsEdit={toggleIsEdit}></Edit>
         <Delete id={id} openConfirmTaskModal={openConfirmTaskModal}></Delete>
       </div>
+
+      <div
+        className={styled.itemPin}
+        onClick={() => onChangePinned(id)}
+        style={{ backgroundColor: pinned ? "red" : "white" }}
+      ></div>
     </li>
   );
 }

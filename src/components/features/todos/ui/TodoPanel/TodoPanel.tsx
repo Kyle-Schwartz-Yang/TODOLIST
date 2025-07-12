@@ -15,6 +15,7 @@ interface TodoItem {
   text: string;
   complete: boolean;
   isEdit: boolean;
+  pinned: boolean;
 }
 
 export default function TodoPanel() {
@@ -31,11 +32,12 @@ export default function TodoPanel() {
       return;
     }
     // -----------------------------------
-    const elementTodo: TodoItem = {
+    const elementTodo = {
       id: uuidv4(),
       text: input.value,
       complete: false,
       isEdit: false,
+      pinned: false,
     };
 
     setTodos([elementTodo, ...todos]);

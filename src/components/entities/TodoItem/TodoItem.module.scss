@@ -2,6 +2,7 @@
 @use "@shared/assets/styles/mixins/" as *;
 
 .item {
+  position: relative;
   @include flexbox(flex, space-between, center);
   border-radius: 1rem;
   max-height: 8.5rem;
@@ -27,5 +28,16 @@
   &Buttons {
     display: flex;
     gap: 2rem;
+  }
+
+  &Pin {
+    position: absolute;
+    right: -0.5rem;
+    top: -0.5rem;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: silver;
+    cursor: pointer;
   }
 }
