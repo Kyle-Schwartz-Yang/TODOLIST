@@ -12,9 +12,10 @@
 - Видалення задач ✔
 - Редагування задач ✔
 - LocalStorage [?Optional] ✔
-- Зробити лічильник, кількість створенних задач. [?Optional] ✔
-- Підтвердження на видалення (модал) [?Optional] ✔
-- Pinned tasks [?Optional]
+- Counter todos [?Optional] ✔
+- Confirm Modal [?Optional] ✔
+- Pinnned [?Optional] ✔
+- List complete todos [?Optional] ✔
 
 ### START APP 🚀
 

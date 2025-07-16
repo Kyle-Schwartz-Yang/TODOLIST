@@ -8,10 +8,9 @@ export default function TodoBoard() {
     <main className="main">
       <section className="todo">
         <div className="todo__container">
-          <TodoCount />
           <TodoPanel />
           {todos.length <= 0 && <TodoEmpty />}
-          <TodoList />
+          {todos.length > 0 && <TodoList />}
         </div>
       </section>
     </main>

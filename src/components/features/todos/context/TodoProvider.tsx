@@ -104,7 +104,6 @@ export default function TodoProvider({ children }: TodoProviderProps) {
   };
 
   const onChangePinned = (id: string) => {
-    console.log("pinned");
     setTodos(
       todos.map((item) =>
         item.id === id ? { ...item, pinned: !item.pinned } : item
@@ -112,11 +111,26 @@ export default function TodoProvider({ children }: TodoProviderProps) {
     );
   };
 
+  // const pinnedTodos = todos.slice().sort((a, b) => {
+  //   if (a.pinned === b.pinned) return 0;
+  //   return a.pinned ? -1 : 1;
+  // });
+
+  const completedTodos = todos.filter((todo) => todo.complete);
+  const uncompletedTodos = todos
+    .filter((todo) => !todo.complete)
+    .sort((a, b) => {
+      if (a.pinned === b.pinned) return 0;
+      return a.pinned ? -1 : 1;
+    });
+
   const value: TodoContextType = {
     count,
     isOpenModal,
     setIsOpenModal,
     todos,
+    uncompletedTodos,
+    completedTodos,
     setTodos,
     openConfirmTaskModal,
     handleDelete,
