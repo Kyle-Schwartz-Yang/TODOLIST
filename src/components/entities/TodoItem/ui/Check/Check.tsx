@@ -8,8 +8,12 @@ interface Props {
 }
 
 export default function Check({ title, id, complete, toggleComplete }: Props) {
+  if (title.length > 500) {
+    title = title.slice(0, 500) + "...";
+  }
+
   return (
-    <div className="checkbox">
+    <div className={style.checkbox}>
       <label className={style.label} htmlFor={id}>
         <input
           type="checkbox"
@@ -24,7 +28,7 @@ export default function Check({ title, id, complete, toggleComplete }: Props) {
             className={style.path}
           ></path>
         </svg>
-        {title}
+        <span className={style.text}> {title}</span>
       </label>
     </div>
   );

@@ -22,6 +22,7 @@ export default function App() {
         <TodoBoard></TodoBoard>
         <TodoConfirmModal></TodoConfirmModal>
       </TodoProvider>
+
       <Footer></Footer>
       {/* -------------------------- */}
       <Toster></Toster>

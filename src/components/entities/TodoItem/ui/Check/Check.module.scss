@@ -1,8 +1,8 @@
 .label {
   cursor: pointer;
-  display: flex;
+  display: inline flex;
   justify-content: center;
-  align-items: center;
+
   gap: 30px;
 
   & input {
@@ -26,6 +26,9 @@
   }
 }
 
+.checkbox {
+}
+
 .path {
   fill: none;
   stroke: #5d9948;
@@ -35,4 +38,13 @@
   transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
   stroke-dasharray: 241 9999999;
   stroke-dashoffset: 0;
+}
+
+.text {
+  // padding: 15px;
+  text-overflow: ellipsis;
+  white-space: wrap; // текст у рядок
+  overflow: hidden;
+  word-break: break-word;
+  white-space: normal;
 }
