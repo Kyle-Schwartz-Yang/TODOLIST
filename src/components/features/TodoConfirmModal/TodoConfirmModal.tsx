@@ -1,4 +1,4 @@
-import useTodo from "@features/todos/context/useTodo";
+import useTodo from "@entities/Todos/model/useTodo";
 
 import Portal from "@shared/ui/templates/portal/Portal";
 import Modal from "@shared/ui/molecules/modal/Modal";

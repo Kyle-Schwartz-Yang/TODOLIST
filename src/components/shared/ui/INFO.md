@@ -1,4 +1,3 @@
 - atoms/ # Прості компоненти (кнопки, інпути)
 - molecules/ # Складні компоненти (форми, картки)
-- pages/ # Шаблони сторінок
-- templates # Різні шаблони ( hooks, portal, ErrorBoundry )
+- templates # Різні шаблони ( portal, ErrorBoundry )
