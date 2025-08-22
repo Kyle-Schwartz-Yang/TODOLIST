@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTodo } from "@entities/Todos/model";
 //----------------------------------------------------------------
 import confetti from "canvas-confetti";
@@ -21,6 +21,45 @@ interface Props {
   complete: boolean;
   pinned: boolean;
 }
+
+const useConfetti = () => {
+  const lastLaunch = useRef(0);
+
+  const launchConfetti = () => {
+    const now = Date.now();
+
+    // перевіряємо, чи минуло 2 сек
+    if (now - lastLaunch.current < 2000) return;
+
+    lastLaunch.current = now; // оновлюємо останній запуск
+
+    const end = now + 1000;
+    const colors = ["#f8c3da", "#8e0043"];
+
+    const frame = () => {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors,
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors,
+      });
+
+      if (Date.now() < end) requestAnimationFrame(frame);
+    };
+
+    frame();
+  };
+
+  return launchConfetti;
+};
 
 export default function TodoItem({ id, title, complete, pinned }: Props) {
   const { toggleComplete, toggleIsEdit, openConfirmTaskModal, onChangePinned } =
