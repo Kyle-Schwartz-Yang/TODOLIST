@@ -32,21 +32,8 @@
 }
 
 .default {
-  background-color: #1d1d1d;
-  border: 2px solid white;
-
-  position: relative;
-  &::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: white;
-    border-radius: 50%;
-  }
+  background-color: #000;
+  // border: 2px solid white;
 }
 
 .red {
@@ -60,4 +47,36 @@
 }
 .purple {
   background-color: #800080;
+}
+
+.default,
+.red,
+.yellow,
+.blue,
+.purple {
+  position: relative;
+  opacity: 0.5;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0); // початково трохи зліва
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease; // плавна анімація
+  }
+
+  &.active {
+    border: 2px solid white;
+    opacity: 1;
+  }
+
+  &.active::after {
+    transform: translate(-50%, -50%) scale(1);
+    background-color: white;
+  }
 }

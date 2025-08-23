@@ -1,13 +1,26 @@
 import styled from "./Palette.module.scss";
 
-export default function Palette() {
+interface Props {
+  onClick: (str: string) => void;
+  color: string;
+}
+
+const COLORS = ["default", "red", "yellow", "blue", "purple"];
+
+export default function Palette({ onClick, color }: Props) {
   return (
     <div className={styled.palette}>
-      <button className={`${styled.btn} ${styled.default}`}></button>
-      <button className={`${styled.btn} ${styled.red}`}></button>
-      <button className={`${styled.btn} ${styled.yellow}`}></button>
-      <button className={`${styled.btn} ${styled.blue}`}></button>
-      <button className={`${styled.btn} ${styled.purple}`}></button>
+      {COLORS.map((c) => (
+        <button
+          key={c}
+          className={`
+            ${styled.btn} 
+            ${styled[c]} 
+            ${color === c ? styled.active : " "}
+          `}
+          onClick={() => onClick(c)}
+        />
+      ))}
     </div>
   );
 }

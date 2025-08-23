@@ -26,9 +26,7 @@ export default function TodoPanel() {
     e.preventDefault();
 
     if (!input.value.trim()) {
-      toast.error("⭕ Oh no... input empty", {
-        icon: false,
-      });
+      toast.error("Oh, input empty ...", { toastId: "toast-delete" });
       return;
     }
     // -----------------------------------

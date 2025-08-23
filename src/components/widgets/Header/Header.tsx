@@ -10,7 +10,7 @@ const Header = () => {
         <a href="/" className="header__title">
           T❤DO<span>LIST</span>
         </a>
-        <div className="header__basket">basket</div>
+        <div className="header__theme">THEME</div>
       </div>
     </header>
   );

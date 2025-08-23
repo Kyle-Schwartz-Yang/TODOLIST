@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { TodoContext } from "./TodoContext";
 import { TodoItem, TodoContextType } from "@entities/Todos/model/types";
+import useConfetti from "@shared/hooks/useConfetti/useConfetti";
 
 interface TodoProviderProps {
   children: React.ReactNode;
@@ -15,6 +16,8 @@ export default function TodoProvider({ children }: TodoProviderProps) {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [taskIdToDelete, setTaskIdToDelete] = useState<string>("");
   // --------------------------------------------------
+
+  const { launchConfetti } = useConfetti();
 
   // Escape [modal and delete]
   useEffect(() => {
@@ -63,11 +66,12 @@ export default function TodoProvider({ children }: TodoProviderProps) {
 
     setTaskIdToDelete("");
     setIsOpenModal(false);
-    toast.success("DONE!");
+    toast.info("DELETE!");
   };
 
   const toggleComplete = (id: string) => {
     let shouldShowToast = false;
+    let shouldLaunchConfetti = false;
 
     const updatedTodos = todos.map((item) => {
       if (item.id === id) {
@@ -80,11 +84,16 @@ export default function TodoProvider({ children }: TodoProviderProps) {
       return item;
     });
 
+    if (updatedTodos.every((item) => item.complete)) {
+      shouldLaunchConfetti = true;
+    }
+
     setTodos(updatedTodos);
 
     if (shouldShowToast) {
-      toast.success("Виконано!");
+      toast.success("DONE!");
     }
+    if (shouldLaunchConfetti) launchConfetti();
   };
 
   const toggleIsEdit = (id: string) => {

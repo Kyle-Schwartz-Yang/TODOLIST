@@ -27,7 +27,6 @@ export default function TodoListSection({
   onClick,
 }: TodoListSectionProps) {
   const isOpen = open[title.toLowerCase() as SectionKey];
-  console.log(isOpen);
 
   return (
     <section>
