@@ -9,24 +9,21 @@ interface TodoProviderProps {
 }
 
 export default function TodoProvider({ children }: TodoProviderProps) {
-  // -----------------------------------------
   const [count, setCount] = useState<number>(0);
   const [todos, setTodos] = useState<TodoItem[]>([]);
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [taskIdToDelete, setTaskIdToDelete] = useState<string>("");
-  // --------------------------------------------------
 
   const { launchConfetti } = useConfetti();
 
-  // Escape [modal and delete]
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         if (isOpenModal) {
-          setIsOpenModal(false); // Закриваємо модалку
+          setIsOpenModal(false);
         } else {
-          setTodos((prev) => prev.slice(1)); // Видаляємо задачу
+          setTodos((prev) => prev.slice(1));
         }
       }
     };
@@ -38,7 +35,6 @@ export default function TodoProvider({ children }: TodoProviderProps) {
     };
   }, [isOpenModal]);
 
-  // localStorage - show todo start APP
   useEffect(() => {
     const saved = localStorage.getItem("todos");
     if (saved) {
@@ -47,14 +43,11 @@ export default function TodoProvider({ children }: TodoProviderProps) {
     }
   }, []);
 
-  // localStorage - save change todo
   useEffect(() => {
     const arrayTransforminString = JSON.stringify(todos);
     localStorage.setItem("todos", arrayTransforminString);
     setCount(todos.length);
   }, [todos]);
-
-  // -----------------------------------------------------
 
   const openConfirmTaskModal = (id: string) => {
     setTaskIdToDelete(id);
@@ -126,6 +119,7 @@ export default function TodoProvider({ children }: TodoProviderProps) {
   // });
 
   const completedTodos = todos.filter((todo) => todo.complete);
+
   const uncompletedTodos = todos
     .filter((todo) => !todo.complete)
     .sort((a, b) => {
