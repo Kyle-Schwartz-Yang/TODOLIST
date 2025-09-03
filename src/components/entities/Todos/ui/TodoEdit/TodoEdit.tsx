@@ -1,50 +1,43 @@
 import { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
-
-import useTodo from "@components/entities/Todos/model/useTodo";
-
-import { Confirm } from "@components/entities/Todos/ui/TodoEdit/ui";
+import { useTodos } from "@entities/Todos/model";
+import { Confirm } from "@entities/Todos/ui/TodoEdit/ui";
+import { updateTodo } from "@entities/Todos/model/actions";
+import { useInput } from "@shared/hooks";
 
 import styled from "./TodoEdit.module.scss";
 
 interface Props {
   title: string;
   id: string;
-  isEdit: boolean;
+  isEditing: boolean;
 }
 
-export default function TodoEdit(props: Props) {
-  const { onEdit } = useTodo();
-
-  const [input, setInput] = useState<string>(props.title);
+export default function TodoEdit({ title, id, isEditing }: Props) {
+  const { value, onChange } = useInput(title);
+  const { dispatch } = useTodos();
   const inputEdit = useRef<HTMLInputElement>(null);
 
-  const onChangeValue = (value: string) => {
-    setInput(value);
-  };
-
   useEffect(() => {
-    if (props.isEdit) {
+    if (isEditing) {
       inputEdit.current?.focus();
     }
-  }, [props.isEdit]);
+  }, [isEditing]);
 
   const validateAndEdit = () => {
-    if (input.trim().length === 0) {
+    if (value.trim().length === 0) {
       toast.error("ОЙЙ 😬");
       inputEdit.current?.focus();
       return false;
     }
-    onEdit(input, props.id);
+    dispatch(updateTodo(value, id));
+
     return true;
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Щоб форма не обробила submit
-      event.stopPropagation(); // Щоб не пішло вгору по DOM
-      validateAndEdit();
-    }
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    validateAndEdit();
   };
 
   const handleConfirm = () => {
@@ -52,18 +45,23 @@ export default function TodoEdit(props: Props) {
   };
 
   return (
-    <li className={`${styled.item} ${props.isEdit ? styled.itemEdit : ""}`}>
-      <input
-        type="text"
-        placeholder="Change value..."
-        value={input}
-        ref={inputEdit}
-        onChange={(e) => onChangeValue(e.target.value)}
-        className={styled.itemInput}
-        onKeyDown={handleKeyPress}
-      />
-
-      <Confirm handleConfirm={handleConfirm}></Confirm>
+    <li className={`${styled.edit}`}>
+      <form onSubmit={onSubmit} className={styled.editForm}>
+        <label htmlFor="edit-input" className="visually-hidden">
+          Edit todo value
+        </label>
+        <input
+          id="edit-input"
+          type="text"
+          placeholder="Change value..."
+          aria-invalid={!value.trim()}
+          value={value}
+          onChange={onChange}
+          ref={inputEdit}
+          className={styled.editInput}
+        />
+        <Confirm handleConfirm={handleConfirm}></Confirm>
+      </form>
     </li>
   );
 }

@@ -1,4 +1,4 @@
-import useTodo from "@entities/Todos/model/useTodo";
+import { useTodos } from "@entities/Todos/model";
 
 import Portal from "@shared/ui/templates/portal/Portal";
 import Modal from "@shared/ui/molecules/modal/Modal";
@@ -6,7 +6,7 @@ import Modal from "@shared/ui/molecules/modal/Modal";
 import styled from "./TodoConfirmModal.module.scss";
 
 export default function TodoConfirmModal() {
-  const { isOpenModal, setIsOpenModal, handleDelete } = useTodo();
+  const { isOpenModal, setIsOpenModal, deleteTodo } = useTodos();
 
   return (
     <Portal>
@@ -15,7 +15,7 @@ export default function TodoConfirmModal() {
           <div className={styled.box}>
             <p className={styled.text}>Are you sure you want to delete ?</p>
             <div className={styled.buttons}>
-              <button className={styled.buttonsDelete} onClick={handleDelete}>
+              <button className={styled.buttonsDelete} onClick={deleteTodo}>
                 Yes 🧺
               </button>
               <button

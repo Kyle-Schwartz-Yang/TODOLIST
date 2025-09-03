@@ -6,7 +6,7 @@ import TodoConfirmModal from "@features/TodoConfirmModal/TodoConfirmModal";
 
 import Toster from "@shared/ui/molecules/toster/Toster";
 // ----------------------------------------------------------------
-import TodoProvider from "@components/entities/Todos/model/TodoProvider";
+import { TodoProvider } from "@components/entities/Todos/model";
 
 // ----------------------------------------------------------------
 import "./App.scss";

@@ -1,61 +1,166 @@
-import React, { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useReducer,
+} from "react";
+
 import { toast } from "react-toastify";
-import { TodoContext } from "./TodoContext";
-import { TodoItem, TodoContextType } from "@entities/Todos/model/types";
+import { State, TodoItem, TodoContextType } from "@entities/Todos/model/types";
 import useConfetti from "@shared/hooks/useConfetti/useConfetti";
 
 interface TodoProviderProps {
   children: React.ReactNode;
 }
 
-export default function TodoProvider({ children }: TodoProviderProps) {
-  const [count, setCount] = useState<number>(0);
-  const [todos, setTodos] = useState<TodoItem[]>([]);
+const TodosContext = createContext<TodoContextType | null>(null);
 
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [taskIdToDelete, setTaskIdToDelete] = useState<string>("");
+export const ACTIONS = {
+  CREATE: "CREATE_TODO",
+  DELETE: "DELETE_TODO",
+  DONE: "TOGGLE_COMPLETE",
+  EDIT: "TOGGLE_EDIT",
+  UPDATE: "UPDATE_TODO",
+  PINNED: "TOGGLE_PINNED",
+  PALETTE: "SET_COLOR",
+  SET_FILTER_COLOR: "SET_FILTER_COLOR",
+} as const;
+
+// export const ACTIONS = {
+//   CREATE_TODO: "CREATE_TODO",
+//   DELETE_TODO: "DELETE_TODO",
+//   TOGGLE_COMPLETE: "TOGGLE_COMPLETE",
+//   TOGGLE_EDIT: "TOGGLE_EDIT",
+//   UPDATE_TODO: "UPDATE_TODO",
+//   TOGGLE_PINNED: "TOGGLE_PINNED",
+//   SET_COLOR: "SET_COLOR",
+//   SET_FILTER_COLOR: "SET_FILTER_COLOR",
+// } as const;
+
+type Action =
+  | { type: typeof ACTIONS.CREATE; payload: TodoItem }
+  | { type: typeof ACTIONS.DELETE; payload: string }
+  | { type: typeof ACTIONS.DONE; payload: string }
+  | { type: typeof ACTIONS.EDIT; payload: string }
+  | { type: typeof ACTIONS.PINNED; payload: string }
+  | { type: typeof ACTIONS.PALETTE; payload: { id: string; color: string } }
+  | { type: typeof ACTIONS.SET_FILTER_COLOR; payload: string }
+  | { type: typeof ACTIONS.UPDATE; payload: { id: string; value: string } };
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case ACTIONS.CREATE:
+      return { ...state, todos: [action.payload, ...state.todos] };
+    case ACTIONS.DELETE:
+      return {
+        ...state,
+        todos: state.todos.filter((item) => item.id !== action.payload),
+      };
+    case ACTIONS.DONE:
+      return {
+        ...state,
+        todos: state.todos.map((item) =>
+          item.id === action.payload
+            ? { ...item, complete: !item.complete }
+            : item
+        ),
+      };
+    case ACTIONS.EDIT:
+      return {
+        ...state,
+        todos: state.todos.map((item) =>
+          item.id === action.payload
+            ? { ...item, isEditing: !item.isEditing }
+            : item
+        ),
+      };
+    case ACTIONS.PINNED:
+      return {
+        ...state,
+        todos: state.todos.map((item) =>
+          item.id === action.payload
+            ? { ...item, isPinned: !item.isPinned }
+            : item
+        ),
+      };
+    case ACTIONS.UPDATE:
+      return {
+        ...state,
+        todos: state.todos.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, text: action.payload.value, isEditing: false }
+            : item
+        ),
+      };
+    case ACTIONS.PALETTE:
+      return {
+        ...state,
+        todos: state.todos.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, color: action.payload.color }
+            : item
+        ),
+      };
+    case ACTIONS.SET_FILTER_COLOR:
+      return { ...state, filterColor: action.payload };
+
+    default:
+      return state;
+  }
+}
+
+const initialState: State = {
+  todos: [],
+  filterColor: "ALL",
+};
+
+export function TodoProvider({ children }: TodoProviderProps) {
+  const [{ todos }, dispatch] = useReducer(reducer, initialState);
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [taskIdToDelete, setTaskIdToDelete] = useState("");
 
   const { launchConfetti } = useConfetti();
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        if (isOpenModal) {
-          setIsOpenModal(false);
-        } else {
-          setTodos((prev) => prev.slice(1));
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const handleKeyDown = (event: KeyboardEvent) => {
+  //     if (event.key === "Escape") {
+  //       if (isOpenModal) {
+  //         setIsOpenModal(false);
+  //       } else {
+  //         setTodos((prev) => prev.slice(1));
+  //       }
+  //     }
+  //   };
 
-    document.addEventListener("keydown", handleKeyDown);
+  //   document.addEventListener("keydown", handleKeyDown);
 
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpenModal]);
+  //   return () => {
+  //     document.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, [isOpenModal]);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("todos");
-    if (saved) {
-      const stringTransforinArray = JSON.parse(saved);
-      setTodos(stringTransforinArray);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const saved = localStorage.getItem("todos");
+  //   if (saved) {
+  //     const stringTransforinArray = JSON.parse(saved);
+  //     setTodos(stringTransforinArray);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    const arrayTransforminString = JSON.stringify(todos);
-    localStorage.setItem("todos", arrayTransforminString);
-    setCount(todos.length);
-  }, [todos]);
+  // useEffect(() => {
+  //   const arrayTransforminString = JSON.stringify(todos);
+  //   localStorage.setItem("todos", arrayTransforminString);
+  // }, [todos]);
 
   const openConfirmTaskModal = (id: string) => {
     setTaskIdToDelete(id);
     setIsOpenModal(true);
   };
 
-  const handleDelete = () => {
-    setTodos(todos.filter((item) => item.id !== taskIdToDelete));
+  const deleteTodo = () => {
+    dispatch({ type: ACTIONS.DELETE, payload: taskIdToDelete });
 
     setTaskIdToDelete("");
     setIsOpenModal(false);
@@ -66,82 +171,63 @@ export default function TodoProvider({ children }: TodoProviderProps) {
     let shouldShowToast = false;
     let shouldLaunchConfetti = false;
 
-    const updatedTodos = todos.map((item) => {
-      if (item.id === id) {
-        const updatedItem = { ...item, complete: !item.complete };
-        if (updatedItem.complete) shouldShowToast = true;
+    dispatch({ type: ACTIONS.DONE, payload: id });
 
-        return updatedItem;
-      }
+    // if (updatedTodos.every((item) => item.complete)) {
+    //   shouldLaunchConfetti = true;
+    // }
 
-      return item;
-    });
+    // if (shouldShowToast) {
+    //   toast.success("DONE!");
+    // }
 
-    if (updatedTodos.every((item) => item.complete)) {
-      shouldLaunchConfetti = true;
-    }
-
-    setTodos(updatedTodos);
-
-    if (shouldShowToast) {
-      toast.success("DONE!");
-    }
-    if (shouldLaunchConfetti) launchConfetti();
+    // if (shouldLaunchConfetti) launchConfetti();
   };
 
-  const toggleIsEdit = (id: string) => {
-    setTodos(
-      todos.map((item) =>
-        item.id === id ? { ...item, isEdit: !item.isEdit } : item
-      )
-    );
-  };
+  // ???????????????????????????????????
+  // isEditinging, editMode,
 
-  const onEdit = (value: string, id: string) => {
-    setTodos(
-      todos.map((item) =>
-        item.id === id ? { ...item, text: value, isEdit: !item.isEdit } : item
-      )
-    );
-  };
+  // UPDATE EDIT  - onEditing updateText
 
-  const onChangePinned = (id: string) => {
-    setTodos(
-      todos.map((item) =>
-        item.id === id ? { ...item, pinned: !item.pinned } : item
-      )
-    );
-  };
-
-  // const pinnedTodos = todos.slice().sort((a, b) => {
-  //   if (a.pinned === b.pinned) return 0;
-  //   return a.pinned ? -1 : 1;
-  // });
+  // ???????????????????????????????????
 
   const completedTodos = todos.filter((todo) => todo.complete);
 
   const uncompletedTodos = todos
     .filter((todo) => !todo.complete)
     .sort((a, b) => {
-      if (a.pinned === b.pinned) return 0;
-      return a.pinned ? -1 : 1;
+      if (a.isPinned === b.isPinned) return 0;
+      return a.isPinned ? -1 : 1;
     });
 
   const value: TodoContextType = {
-    count,
+    todos,
+    dispatch,
+
+    toggleComplete,
+
+    deleteTodo,
+
+    //-----------------------------------------
+
     isOpenModal,
     setIsOpenModal,
-    todos,
+
     uncompletedTodos,
     completedTodos,
-    setTodos,
+
     openConfirmTaskModal,
-    handleDelete,
-    toggleComplete,
-    toggleIsEdit,
-    onEdit,
-    onChangePinned,
   };
 
-  return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
+  return (
+    <TodosContext.Provider value={value}>{children}</TodosContext.Provider>
+  );
+}
+
+export function useTodos() {
+  const context = useContext(TodosContext);
+  if (!context) {
+    throw new Error("Ops, problems with TodosContext");
+  }
+  return context;
 }

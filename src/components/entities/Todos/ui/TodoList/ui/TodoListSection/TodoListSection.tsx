@@ -7,8 +7,8 @@ interface Todo {
   id: string;
   text: string;
   complete: boolean;
-  pinned: boolean;
-  isEdit?: boolean;
+  isPinned: boolean;
+  isEditing?: boolean;
 }
 
 interface TodoListSectionProps {

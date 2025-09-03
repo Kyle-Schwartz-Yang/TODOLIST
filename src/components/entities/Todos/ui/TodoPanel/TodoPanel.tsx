@@ -1,57 +1,50 @@
 import React from "react";
 //----------------------------------------------
-import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 //----------------------------------------------
-import AddButton from "@shared/ui/atoms/AddButton/AddButton";
-import useControlledInput from "@shared/hooks/useControlledInput/useControlledInput";
-import useTodo from "@components/entities/Todos/model/useTodo";
 
+import { useInput } from "@shared/hooks";
+import { useTodos } from "@entities/Todos/model";
+import { createTodo } from "@entities/Todos/model/actions";
+//--------------------------------------------------------
 import styled from "./TodoPanel.module.scss";
 //----------------------------------------------
 
-interface TodoItem {
-  id: string;
-  text: string;
-  complete: boolean;
-  isEdit: boolean;
-  pinned: boolean;
-}
-
 export default function TodoPanel() {
-  const { todos, setTodos } = useTodo();
-  const input = useControlledInput("");
+  const { dispatch } = useTodos();
+  const { value, onChange, onReset } = useInput("");
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const handleCreateTask = (e: React.FormEvent<HTMLFormElement>) => {
+  const onCreateTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!input.value.trim()) {
+    if (!value.trim()) {
       toast.error("Oh, input empty ...", { toastId: "toast-delete" });
       return;
     }
-    // -----------------------------------
-    const elementTodo = {
-      id: uuidv4(),
-      text: input.value,
-      complete: false,
-      isEdit: false,
-      pinned: false,
-    };
-
-    setTodos([elementTodo, ...todos]);
-    input.reset();
+    dispatch(createTodo(value));
+    onReset();
+    inputRef.current?.focus();
   };
 
   return (
-    <form className={styled.form} onSubmit={handleCreateTask}>
+    <form className={styled.form} onSubmit={onCreateTodo}>
+      <label htmlFor="todo-input" className="visually-hidden">
+        Todo text
+      </label>
       <input
+        id="todo-input"
         type="text"
         placeholder="Type here..."
-        value={input.value}
-        onChange={input.onChange}
+        aria-invalid={!value.trim()}
+        value={value}
+        onChange={onChange}
+        ref={inputRef}
         className={styled.formInput}
       />
-      <AddButton></AddButton>
+      <button className={styled.button} type="submit" aria-label="Add todo">
+        <span className={styled.buttonSign}>+</span>
+        <span className={styled.buttonText}>Add</span>
+      </button>
     </form>
   );
 }

@@ -2,9 +2,8 @@
 @use "@shared/assets/styles/mixins/" as *;
 
 .item {
-  position: relative;
   @include flexbox(flex, space-between, null, column);
-
+  position: relative;
   border-radius: 1rem;
   min-height: 15.5rem;
   padding: 2rem;
@@ -14,14 +13,10 @@
     margin-bottom: 3rem;
   }
 
-  &Done {
+  &Complete {
     opacity: 0.3;
     text-decoration: line-through;
     border: 2px solid $success !important;
-  }
-
-  &Edit {
-    border: 2px solid $attention;
   }
 
   &Buttons {
@@ -30,16 +25,54 @@
     align-items: flex-end;
     gap: 2rem;
   }
+  &IconEdit,
+  &IconDelete {
+    & svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover svg {
+      fill: #fff;
+    }
+  }
+
+  &IconEdit {
+    & svg {
+      fill: #ffb74d;
+    }
+    &:hover {
+      border: 2px solid #ffb74d;
+    }
+  }
+
+  &IconDelete {
+    & svg {
+      fill: silver;
+    }
+
+    &:hover {
+      border: 2px solid red;
+    }
+  }
 
   &Pin {
-    position: absolute;
-    right: -0.5rem;
-    top: -0.5rem;
-    border-radius: 50%;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: silver;
     cursor: pointer;
+    position: absolute;
+    top: -15px;
+    right: 10px;
+
+    & svg {
+      width: 16px;
+      height: auto;
+      transform: rotate(35deg);
+      fill: silver;
+      transition: transform 0.3s ease, fill 0.3s ease;
+    }
+
+    &.active svg {
+      fill: #f76fb5;
+    }
   }
 }
 

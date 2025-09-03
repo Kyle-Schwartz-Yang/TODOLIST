@@ -4,8 +4,8 @@ interface Todo {
   id: string;
   text: string;
   complete: boolean;
-  pinned: boolean;
-  isEdit?: boolean;
+  isPinned: boolean;
+  isEditing?: boolean;
 }
 
 interface TodoItemsListProps {
@@ -16,19 +16,20 @@ export default function TodoItemsList({ todos }: TodoItemsListProps) {
   return (
     <ul>
       {todos.map((item) =>
-        item.isEdit ? (
+        item.isEditing ? (
           <TodoEdit
             key={item.id}
             title={item.text}
             id={item.id}
-            isEdit={item.isEdit}
+            isEditing={item.isEditing}
           />
         ) : (
           <TodoItem
             key={item.id}
             title={item.text}
             complete={item.complete}
-            pinned={item.pinned}
+            isPinned={item.isPinned}
+            color={item.color}
             id={item.id}
           />
         )

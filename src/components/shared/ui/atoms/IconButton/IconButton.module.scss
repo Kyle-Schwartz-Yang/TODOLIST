@@ -1,0 +1,9 @@
+@use "@shared/assets/styles/mixins/" as *;
+
+.button {
+  @include flexbox(flex, center, center);
+  cursor: pointer;
+  height: 5rem;
+  width: 5rem;
+  border: 2px solid white;
+}

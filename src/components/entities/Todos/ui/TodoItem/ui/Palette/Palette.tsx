@@ -1,13 +1,14 @@
 import styled from "./Palette.module.scss";
 
 interface Props {
-  onClick: (str: string) => void;
+  id: string;
+  onClick: (id: string, str: string) => void;
   color: string;
 }
 
 const COLORS = ["default", "red", "yellow", "blue", "purple"];
 
-export default function Palette({ onClick, color }: Props) {
+export default function Palette({ id, onClick, color }: Props) {
   return (
     <div className={styled.palette}>
       {COLORS.map((c) => (
@@ -18,7 +19,7 @@ export default function Palette({ onClick, color }: Props) {
             ${styled[c]} 
             ${color === c ? styled.active : " "}
           `}
-          onClick={() => onClick(c)}
+          onClick={() => onClick(id, c)}
         />
       ))}
     </div>

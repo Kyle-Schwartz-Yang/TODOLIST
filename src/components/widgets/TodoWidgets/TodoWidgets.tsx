@@ -1,9 +1,9 @@
-import { useTodo } from "@entities/Todos/model";
+import { useTodos } from "@entities/Todos/model";
 import { TodoPanel, TodoList } from "@components/entities/Todos/ui";
 import { Placeholder } from "@shared/ui";
 
 export default function TodoWidgets() {
-  const { todos } = useTodo();
+  const { todos, dispatch } = useTodos();
   const hasTodos = todos.length > 0;
 
   return (

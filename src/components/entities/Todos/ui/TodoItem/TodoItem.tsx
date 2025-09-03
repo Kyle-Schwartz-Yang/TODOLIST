@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef, use } from "react";
-import { useTodo } from "@entities/Todos/model";
+import { FaThumbtack, FaTrash, FaEdit } from "react-icons/fa";
+import { Check, Palette } from "@entities/Todos/ui/TodoItem/ui";
+import { useTodos } from "@entities/Todos/model";
+import { IconButton } from "@shared/ui";
 
 import {
-  Edit,
-  Delete,
-  Check,
-  Pinned,
-  Palette,
-} from "@components/entities/Todos/ui/TodoItem/ui";
+  toggleEditing,
+  togglePinned,
+  changeColor,
+} from "@entities/Todos/model/actions";
 
 import styled from "./TodoItem.module.scss";
 
@@ -15,72 +15,64 @@ interface Props {
   id: string;
   title: string;
   complete: boolean;
-  pinned: boolean;
+  isPinned: boolean;
+  color: string;
 }
 
-export default function TodoItem({ id, title, complete, pinned }: Props) {
-  const { toggleComplete, toggleIsEdit, openConfirmTaskModal, onChangePinned } =
-    useTodo();
-
-  const handleComplete = () => {
-    toggleComplete(id);
-  };
-
-  const [isAnimating, setIsAnimating] = useState<boolean>(false);
-
-  useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    if (isAnimating) {
-      timeoutId = setTimeout(() => {
-        setIsAnimating(false);
-      }, 3000);
-    }
-
-    return () => clearTimeout(timeoutId);
-  }, [isAnimating]);
-
-  const handleClick = () => {
-    setIsAnimating(true);
-    onChangePinned(id);
-  };
-
-  const [isColorPalette, setIsColorPalette] = useState<string>("default");
-
-  const handlePalette = (str: string) => {
-    setIsColorPalette(str);
-  };
-  console.log(isColorPalette);
+export default function TodoItem({
+  id,
+  title,
+  complete,
+  isPinned,
+  color,
+}: Props) {
+  const { toggleComplete, openConfirmTaskModal, dispatch } = useTodos();
 
   return (
     <li
       className={`
         ${styled.item} 
-        ${complete ? styled.itemDone : ""}  
-        ${styled[isColorPalette]}
+        ${complete ? styled.itemComplete : ""}  
+        ${styled[color]}
       `}
     >
       <Check
         title={title}
         id={id}
         complete={complete}
-        onToggle={handleComplete}
+        onToggle={() => toggleComplete(id)}
       />
 
+      <button
+        type="button"
+        className={`${styled.itemPin} ${isPinned ? styled.active : ""}`}
+        onClick={() => dispatch(togglePinned(id))}
+      >
+        <FaThumbtack />
+      </button>
+
       <div className={styled.itemButtons}>
-        <Palette onClick={handlePalette} color={isColorPalette}></Palette>
+        <Palette
+          id={id}
+          onClick={(id, str) => dispatch(changeColor(id, str))}
+          color={color}
+        />
 
         <div style={{ display: "flex", gap: "2rem" }}>
-          <Edit id={id} toggleIsEdit={toggleIsEdit}></Edit>
-          <Delete id={id} openConfirmTaskModal={openConfirmTaskModal}></Delete>
+          <IconButton
+            className={styled.itemIconEdit}
+            onClick={() => dispatch(toggleEditing(id))}
+          >
+            <FaEdit />
+          </IconButton>
+          <IconButton
+            className={styled.itemIconDelete}
+            onClick={() => openConfirmTaskModal(id)}
+          >
+            <FaTrash />
+          </IconButton>
         </div>
       </div>
-
-      <Pinned
-        pinned={pinned}
-        onClick={handleClick}
-        isAnimating={isAnimating}
-      ></Pinned>
     </li>
   );
 }
