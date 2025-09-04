@@ -2,7 +2,7 @@ import { ReactNode, ButtonHTMLAttributes } from "react";
 import styled from "./IconButton.module.scss";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
   className?: string;
 }

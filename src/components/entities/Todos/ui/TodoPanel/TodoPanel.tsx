@@ -1,4 +1,4 @@
-import React from "react";
+import { useRef, useEffect } from "react";
 //----------------------------------------------
 import { toast } from "react-toastify";
 //----------------------------------------------
@@ -13,17 +13,22 @@ import styled from "./TodoPanel.module.scss";
 export default function TodoPanel() {
   const { dispatch } = useTodos();
   const { value, onChange, onReset } = useInput("");
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const onCreateTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!value.trim()) {
-      toast.error("Oh, input empty ...", { toastId: "toast-delete" });
+      toast.error("Oh, input empty ...", { toastId: "toast-create-empty" });
+      inputRef.current?.focus();
       return;
     }
     dispatch(createTodo(value));
     onReset();
-    inputRef.current?.focus();
   };
 
   return (

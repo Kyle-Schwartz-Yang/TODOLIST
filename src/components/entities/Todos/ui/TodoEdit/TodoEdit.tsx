@@ -1,52 +1,41 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { toast } from "react-toastify";
+import { FaCheck } from "react-icons/fa";
 import { useTodos } from "@entities/Todos/model";
-import { Confirm } from "@entities/Todos/ui/TodoEdit/ui";
 import { updateTodo } from "@entities/Todos/model/actions";
 import { useInput } from "@shared/hooks";
-
 import styled from "./TodoEdit.module.scss";
+// import { IconButton } from "@shared/ui";
 
 interface Props {
-  title: string;
   id: string;
-  isEditing: boolean;
+  title: string;
 }
 
-export default function TodoEdit({ title, id, isEditing }: Props) {
+export default function TodoEdit({ title, id }: Props) {
   const { value, onChange } = useInput(title);
   const { dispatch } = useTodos();
-  const inputEdit = useRef<HTMLInputElement>(null);
+  const inputFocus = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isEditing) {
-      inputEdit.current?.focus();
-    }
-  }, [isEditing]);
+    inputFocus.current?.focus();
+  }, []);
 
-  const validateAndEdit = () => {
-    if (value.trim().length === 0) {
-      toast.error("ОЙЙ 😬");
-      inputEdit.current?.focus();
-      return false;
-    }
-    dispatch(updateTodo(value, id));
-
-    return true;
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onUpdateTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    validateAndEdit();
-  };
 
-  const handleConfirm = () => {
-    validateAndEdit();
+    if (!value.trim()) {
+      toast.error("Oh, input empty ...", { toastId: "toast-edit-empty" });
+      inputFocus.current?.focus();
+      return;
+    }
+
+    dispatch(updateTodo(value, id));
   };
 
   return (
     <li className={`${styled.edit}`}>
-      <form onSubmit={onSubmit} className={styled.editForm}>
+      <form onSubmit={onUpdateTodo} className={styled.editForm}>
         <label htmlFor="edit-input" className="visually-hidden">
           Edit todo value
         </label>
@@ -57,10 +46,18 @@ export default function TodoEdit({ title, id, isEditing }: Props) {
           aria-invalid={!value.trim()}
           value={value}
           onChange={onChange}
-          ref={inputEdit}
+          ref={inputFocus}
           className={styled.editInput}
         />
-        <Confirm handleConfirm={handleConfirm}></Confirm>
+
+        {/* ------------------IconButton?? but submit */}
+        <button
+          type="submit"
+          className={styled.editConfirm}
+          aria-label="Edit todo"
+        >
+          <FaCheck></FaCheck>
+        </button>
       </form>
     </li>
   );
