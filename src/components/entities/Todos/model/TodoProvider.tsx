@@ -1,10 +1,10 @@
 import {
-  useState,
-  ReactNode,
-  useMemo,
-  createContext,
-  useContext,
-  useReducer,
+    useState,
+    ReactNode,
+    useMemo,
+    createContext,
+    useContext,
+    useReducer, useEffect,
 } from "react";
 
 import { State, Action, TodoItem, TodoContextType } from "@entities/Todos/model/types";
@@ -94,13 +94,30 @@ function reducer(state: State, action: Action): State {
   }
 }
 
+
+function init(initial: State): State {
+    const todosLocal = localStorage.getItem('todos');
+    const filterLocal = localStorage.getItem('filter');
+    return {
+        ...initial,
+        todos: todosLocal ? JSON.parse(todosLocal) : initial.todos,
+        filterColor: filterLocal ? JSON.parse(filterLocal) : initial.filterColor
+    }
+}
+
 export function TodoProvider({ children }: { children: ReactNode; }) {
-  const [{ todos, filterColor }, dispatch] = useReducer(reducer, initialState);
+  const [{ todos, filterColor }, dispatch] = useReducer(reducer, initialState, init);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [taskIdToDelete, setTaskIdToDelete] = useState<TodoItem | null>(null);
 
   console.log(taskIdToDelete);
+
+  useEffect(() => {
+      // localStorage.clear()
+      localStorage.setItem('todos', JSON.stringify(todos))
+      localStorage.setItem('filter', JSON.stringify(filterColor))
+  }, [todos, filterColor])
 
   // useEffect(() => {
   //   const handleKeyDown = (event: KeyboardEvent) => {
@@ -120,18 +137,6 @@ export function TodoProvider({ children }: { children: ReactNode; }) {
   //   };
   // }, [isOpenModal]);
 
-  // useEffect(() => {
-  //   const saved = localStorage.getItem("todos");
-  //   if (saved) {
-  //     const stringTransforinArray = JSON.parse(saved);
-  //     setTodos(stringTransforinArray);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   const arrayTransforminString = JSON.stringify(todos);
-  //   localStorage.setItem("todos", arrayTransforminString);
-  // }, [todos]);
 
   const openConfirmTaskModal = (todo: TodoItem) => {
     console.log("GO");
