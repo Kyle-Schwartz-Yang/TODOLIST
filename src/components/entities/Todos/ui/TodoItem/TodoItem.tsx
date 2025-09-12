@@ -33,7 +33,8 @@ export default function TodoItem({
   todo,
 }: Props) {
   const { launchConfetti } = useConfetti();
-  const { openConfirmTaskModal, dispatch, uncompletedTodos } = useTodos();
+  const { openConfirmTaskModal, dispatch, processedTodos } = useTodos();
+  const filterTodos = processedTodos?.filterTodos ?? [];
 
   const onToggleComplete = (id: string) => {
     dispatch(toggleComplete(id));
@@ -42,7 +43,7 @@ export default function TodoItem({
 
   const showDoneFeedback = () => {
     toast.success("DONE!");
-    if (uncompletedTodos.length === 1) launchConfetti();
+    if (filterTodos.length === 1) launchConfetti();
   };
 
   return (
