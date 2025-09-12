@@ -1,19 +1,12 @@
 import { TodoCount } from "@entities/Todos/ui";
 import { TodoItemsList } from "@entities/Todos/ui/TodoList/ui";
+import { TodoItem as TodoItemType } from "@entities/Todos/model/types";
 
 type SectionKey = "active" | "completed"; // скільки треба
 
-interface Todo {
-  id: string;
-  text: string;
-  complete: boolean;
-  isPinned: boolean;
-  isEditing?: boolean;
-}
-
 interface TodoListSectionProps {
   title: string;
-  todos: Todo[];
+  todos: TodoItemType[];
   EmptyComponent: React.ReactNode;
   open: { active: boolean; completed: boolean };
   onClick: (section: SectionKey) => void;

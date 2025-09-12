@@ -4,7 +4,7 @@ import Footer from "@components/widgets/Footer/Footer";
 import TodoWidgets from "@widgets/TodoWidgets/TodoWidgets";
 import TodoConfirmModal from "@features/TodoConfirmModal/TodoConfirmModal";
 
-import Toster from "@shared/ui/molecules/toster/Toster";
+import Toaster from "@shared/ui/molecules/Toaster/Toaster";
 // ----------------------------------------------------------------
 import { TodoProvider } from "@components/entities/Todos/model";
 
@@ -25,7 +25,7 @@ export default function App() {
       <Footer></Footer>
 
       {/* -------------------------- */}
-      <Toster></Toster>
+      <Toaster></Toaster>
     </>
   );
 }

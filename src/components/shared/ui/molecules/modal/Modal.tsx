@@ -8,6 +8,7 @@ interface ModalProps {
   isOpen: boolean;
 }
 
+
 export default class Modal extends React.Component<ModalProps> {
   render() {
     return (
@@ -19,6 +20,7 @@ export default class Modal extends React.Component<ModalProps> {
           <button
             className={styled.modalCross}
             type="button"
+            aria-label='close modal'
             onClick={this.props.onClose}
           >
             ❌

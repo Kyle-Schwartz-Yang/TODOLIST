@@ -1,8 +1,12 @@
 import { FaThumbtack, FaTrash, FaEdit } from "react-icons/fa";
 import { Check, Palette } from "@entities/Todos/ui/TodoItem/ui";
+
+import { toast } from "react-toastify";
+import useConfetti from "@shared/hooks/useConfetti/useConfetti";
 import { useTodos } from "@entities/Todos/model";
 import { IconButton } from "@shared/ui";
-
+import { toggleComplete } from "@entities/Todos/model/actions";
+import { TodoItem as TodoItemType } from "@entities/Todos/model/types";
 import {
   toggleEditing,
   togglePinned,
@@ -17,6 +21,7 @@ interface Props {
   complete: boolean;
   isPinned: boolean;
   color: string;
+  todo: TodoItemType;
 }
 
 export default function TodoItem({
@@ -25,8 +30,20 @@ export default function TodoItem({
   complete,
   isPinned,
   color,
+  todo,
 }: Props) {
-  const { toggleComplete, openConfirmTaskModal, dispatch } = useTodos();
+  const { launchConfetti } = useConfetti();
+  const { openConfirmTaskModal, dispatch, uncompletedTodos } = useTodos();
+
+  const onToggleComplete = (id: string) => {
+    dispatch(toggleComplete(id));
+    showDoneFeedback();
+  };
+
+  const showDoneFeedback = () => {
+    toast.success("DONE!");
+    if (uncompletedTodos.length === 1) launchConfetti();
+  };
 
   return (
     <li
@@ -40,7 +57,7 @@ export default function TodoItem({
         title={title}
         id={id}
         complete={complete}
-        onToggle={() => toggleComplete(id)}
+        onToggle={() => onToggleComplete(id)}
       />
 
       <button
@@ -67,7 +84,7 @@ export default function TodoItem({
           </IconButton>
           <IconButton
             className={styled.itemIconDelete}
-            onClick={() => openConfirmTaskModal(id)}
+            onClick={() => openConfirmTaskModal(todo)}
           >
             <FaTrash />
           </IconButton>

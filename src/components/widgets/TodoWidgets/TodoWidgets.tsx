@@ -3,7 +3,7 @@ import { TodoPanel, TodoList } from "@components/entities/Todos/ui";
 import { Placeholder } from "@shared/ui";
 
 export default function TodoWidgets() {
-  const { todos, dispatch } = useTodos();
+  const { todos } = useTodos();
   const hasTodos = todos.length > 0;
 
   return (

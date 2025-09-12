@@ -34,3 +34,8 @@ export const changeColor = (id: string, color: string) => ({
   type: ACTIONS.PALETTE,
   payload: { id, color },
 });
+
+export const toggleComplete = (id: string) => ({
+  type: ACTIONS.DONE,
+  payload: id,
+});

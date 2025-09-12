@@ -1,0 +1,34 @@
+.filter {
+  //margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+
+  &Btn {
+    margin-right: 2rem;
+    padding: 1rem 2rem;
+    background-color: #1d1d1d;
+    color: #fff;
+    text-transform: uppercase;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  &Btn:hover {
+    background-color: #d9d9d9; /* темніший при наведенні */
+    border-color: #aaa;
+    color: #000;
+  }
+
+  &Btn:active {
+    background-color: #bfbfbf; /* ще темніше при кліку */
+  }
+
+  &Btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(150, 150, 150, 0.4);
+  }
+}
+
+

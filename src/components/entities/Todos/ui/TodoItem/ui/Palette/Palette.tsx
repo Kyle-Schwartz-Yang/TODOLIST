@@ -1,12 +1,12 @@
 import styled from "./Palette.module.scss";
 
+const COLORS = ["default", "red", "yellow", "blue", "purple"] as const;
+
 interface Props {
   id: string;
   onClick: (id: string, str: string) => void;
   color: string;
 }
-
-const COLORS = ["default", "red", "yellow", "blue", "purple"];
 
 export default function Palette({ id, onClick, color }: Props) {
   return (

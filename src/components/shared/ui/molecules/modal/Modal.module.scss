@@ -1,26 +1,38 @@
-@use "@shared/assets/styles/variables/" as *;
-@use "@shared/assets/styles/mixins/" as *;
+@use "@shared/assets/styles/variables" as *;
+@use "@shared/assets/styles/mixins" as *;
 @use "@shared/assets/styles/placeholders";
 
 .modal {
-  width: 100vw;
-  height: 100vh;
   position: fixed;
   z-index: 999;
   left: 0;
   top: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  //----------------------------------
+  // OVERLAY
   display: flex;
   justify-content: center;
   align-items: center;
+  //----------------------------------
+
+  //&Overlay {
+  //  position: absolute;
+  //  top: 0;
+  //  left: 0;
+  //  display: flex;
+  //  justify-content: center;
+  //  align-items: center;
+  //  width: 100%;
+  //  min-height: 100%;
+  //}
+
 
   &Content {
-    // color: black;
     position: relative;
-    // width: 400px;
     max-width: 320px;
-    // height: 150px;
-    background-color: white;
     border-radius: 1rem;
     border: 2px solid black;
     background-color: #1d1d1d;
@@ -29,7 +41,6 @@
   &Cross {
     width: 50px;
     height: 50px;
-    // border: 1px solid red;
     font-size: 2rem;
     border-radius: 1rem;
     color: white;
@@ -38,3 +49,5 @@
     top: 5px;
   }
 }
+
+

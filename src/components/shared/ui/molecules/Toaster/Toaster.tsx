@@ -1,7 +1,7 @@
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Toster() {
+export default function Toaster() {
   return (
     <ToastContainer
       position="top-right"
@@ -18,6 +18,3 @@ export default function Toster() {
     />
   );
 }
-
-// Slide
-// Bounce

@@ -14,7 +14,7 @@
 - LocalStorage [?Optional] ✔
 - Counter todos [?Optional] ✔
 - Confirm Modal [?Optional] ✔
-- Pinnned [?Optional] ✔
+- Pinned [?Optional] ✔
 - List complete todos [?Optional] ✔
 
 ### START APP 🚀
