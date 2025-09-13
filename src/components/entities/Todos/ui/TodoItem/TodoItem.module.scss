@@ -1,8 +1,8 @@
-@use "@shared/assets/styles/variables/" as *;
-@use "@shared/assets/styles/mixins/" as *;
+@use "@shared/assets/styles/variables" as *;
+@use "@shared/assets/styles/mixins" as mix;
 
 .item {
-  @include flexbox(flex, space-between, null, column);
+  @include mix.flexbox(flex, space-between, null, column);
   position: relative;
   border-radius: 1rem;
   min-height: 15.5rem;
@@ -20,10 +20,8 @@
   }
 
   &Buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 2rem;
+    @include mix.flexbox(flex, space-between, flex-end);
+
   }
   &IconEdit,
   &IconDelete {
@@ -63,10 +61,10 @@
     right: 10px;
 
     & svg {
-      width: 16px;
-      height: auto;
+      width: 2rem;
+      height: 2rem;
       transform: rotate(35deg);
-      fill: silver;
+      fill: white;
       transition: transform 0.3s ease, fill 0.3s ease;
     }
 

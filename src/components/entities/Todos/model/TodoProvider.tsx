@@ -138,7 +138,7 @@ export function TodoProvider({ children }: { children: ReactNode; }) {
 
 
   const openConfirmTaskModal = (todo: TodoItem) => {
-    console.log("GO");
+
     setTaskIdToDelete(todo);
     setIsOpenModal(true);
   };

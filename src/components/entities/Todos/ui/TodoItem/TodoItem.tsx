@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import useConfetti from "@shared/hooks/useConfetti/useConfetti";
 import { useTodos } from "@entities/Todos/model";
 import { IconButton } from "@shared/ui";
-import { toggleComplete } from "@entities/Todos/model/actions";
+import { toggleComplete } from "@entities/Todos/model";
 import { TodoItem as TodoItemType } from "@entities/Todos/model/types";
 import {
   toggleEditing,
@@ -32,6 +32,7 @@ export default function TodoItem({
   color,
   todo,
 }: Props) {
+
   const { launchConfetti } = useConfetti();
   const { openConfirmTaskModal, dispatch, processedTodos } = useTodos();
   const filterTodos = processedTodos?.filterTodos ?? [];
@@ -45,6 +46,7 @@ export default function TodoItem({
     toast.success("DONE!");
     if (filterTodos.length === 1) launchConfetti();
   };
+
 
   return (
     <li
