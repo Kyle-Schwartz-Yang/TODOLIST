@@ -36,6 +36,7 @@ export interface TodoContextType {
     dispatch: Dispatch<Action>;
     processedTodos: ProcessedTodos;
     // deleteTodo: () => void;
+    filterColor: string;
 
   //----------------------------------------------------------
 

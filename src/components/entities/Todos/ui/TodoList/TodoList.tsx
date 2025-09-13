@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { Placeholder, EmptyCompleted } from "@shared/ui";
 import { TodoListSection } from "@entities/Todos/ui/TodoList/ui";
-import { useTodos } from "@entities/Todos/model";
+import { useTodos, updFilterColor } from "@entities/Todos/model";
 import styled from './TodoList.module.scss';
 
 
 export default function TodoList() {
-  const { dispatch, processedTodos } = useTodos();
+  const { filterColor, processedTodos, dispatch  } = useTodos();
   const completedTodos = processedTodos?.completedTodos ?? [];
   const filterTodos = processedTodos?.filterTodos ?? [];
-
 
 
   const [openSection, setOpenSection] = useState({
@@ -24,15 +23,7 @@ export default function TodoList() {
     }));
   };
 
-
-
     const COLORS = ["default", "red", "yellow", "blue", "purple"] as const;
-
-
-    const onFilterColor = (c: string) => {
-        dispatch({type: 'SET_FILTER_COLOR', payload: c})
-    }
-
 
   return (
     <>
@@ -40,8 +31,8 @@ export default function TodoList() {
             {COLORS.map((c) => (
                 <button
                     key={c}
-                    className={styled.filterBtn}
-                    onClick={() => onFilterColor(c)}
+                    className={`${styled.filterBtn} ${filterColor === c ? `${styled.filterBtnActive}` : ''}`}
+                    onClick={() => dispatch(updFilterColor(c))}
                 >
                     {c}
                 </button>

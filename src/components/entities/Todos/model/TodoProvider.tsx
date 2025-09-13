@@ -26,7 +26,6 @@ const initialState: State = {
 };
 
 
-
 const TodosContext = createContext<TodoContextType | undefined>(undefined);
 
 function reducer(state: State, action: Action): State {
@@ -172,6 +171,7 @@ export function TodoProvider({ children }: { children: ReactNode; }) {
 
   const value: TodoContextType = {
     todos,
+    filterColor,
     dispatch,
     processedTodos,
 

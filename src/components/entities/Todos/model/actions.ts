@@ -39,3 +39,10 @@ export const toggleComplete = (id: string) => ({
   type: ACTIONS.DONE,
   payload: id,
 });
+
+
+export const updFilterColor = (color: string) => ({
+    type: ACTIONS.SET_FILTER_COLOR,
+    payload: color,
+})
+
