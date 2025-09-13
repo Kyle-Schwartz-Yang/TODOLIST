@@ -1,46 +1,100 @@
-@use "@shared/assets/styles/variables/" as *;
-@use "@shared/assets/styles/mixins/" as *;
+@use "@shared/assets/styles/variables" as *;
+@use "@shared/assets/styles/mixins" as *;
 @use "@shared/assets/styles/placeholders";
 
 .box {
-  height: 100%;
-  width: 100%;
+  position: relative;
+  min-width: 32rem;
+  min-height: 15rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1rem;
   border-radius: 2rem;
-  padding: 3rem 6rem;
+  padding: 2rem;
+
 }
 
-.buttons {
+.cross {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  top: 0;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform .66s ease;
+
+  &:hover {
+    transform: scale(1.5);
+  }
+
+
+  & svg {
+    fill: #548af7;
+    //pointer-events: none !important;
+  }
+}
+
+.body {
   display: flex;
   gap: 2rem;
-  @extend %title;
+  flex-direction: column;
+}
 
-  & button {
-    color: white;
-    text-transform: uppercase;
-    padding: 1rem;
-    min-width: 80px;
-  }
-
-  &Delete {
-    background-color: green;
-    border: 2px solid black;
-  }
-
-  &Cancel {
-    background-color: red;
-    border: 2px solid black;
+.title {
+  font-weight: bold;
+  position: relative;
+  padding-left: 3.5rem;
+  //border: 1px solid red;
+  &:before {
+    content: 'i';
+    background-color: #548af7;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    left: 0;
+    top: -50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid white;
   }
 }
 
 .text {
-  @extend %title;
-  text-align: center;
-  font-size: 2rem;
-  text-align: center;
-  text-transform: uppercase;
+  //font-style: italic;
+  color: silver;
+  //font-weight: 100 !important;
 }
+
+
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+
+
+  & button {
+    color: #fff;
+    padding: .5rem;
+    min-width: 80px;
+    transition: all .33s ease;
+    &:hover {
+      border: 2px solid #548af7;
+    }
+  }
+
+  &Delete {
+    background-color: #548af7;
+    border: 2px solid currentColor;
+
+  }
+
+  &Cancel {
+    border: 2px solid #5c5d5e;
+  }
+}
+

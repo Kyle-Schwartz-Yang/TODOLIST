@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import  { useEffect, useState, ReactNode } from "react";
 
-const Portal = ({ children }: { children: React.ReactNode }) => {
+export  default function Portal ({ children }: { children: ReactNode })  {
+
   const [node] = useState(() => document.createElement("div"));
 
   useEffect(() => {
@@ -14,4 +15,4 @@ const Portal = ({ children }: { children: React.ReactNode }) => {
   return ReactDOM.createPortal(children, node);
 };
 
-export default Portal;
+

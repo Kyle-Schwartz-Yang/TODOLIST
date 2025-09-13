@@ -14,6 +14,7 @@ export default function TodoWidgets() {
           {hasTodos ? <TodoList /> : <Placeholder />}
         </div>
       </section>
+
     </main>
   );
 }

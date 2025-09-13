@@ -1,6 +1,6 @@
 @use "./components/shared/assets/styles/config"; // null-style, fonts,
-@use "./components/shared/assets/styles/variables/" as *;
-@use "./components/shared/assets/styles/mixins/" as *;
+@use "./components/shared/assets/styles/variables" as *;
+@use "./components/shared/assets/styles/mixins" as *;
 
 html {
   font-size: $f-size-rem;
@@ -22,7 +22,7 @@ body {
 [class*="__container"] {
   max-width: 123rem;
   margin: 0 auto;
-  padding: 0px 1.5rem;
+  padding: 0 1.5rem;
 }
 
 .main {

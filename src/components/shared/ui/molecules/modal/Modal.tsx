@@ -5,29 +5,21 @@ import styled from "./Modal.module.scss";
 interface ModalProps {
   children?: React.ReactNode;
   onClose?: () => void;
-  isOpen: boolean;
 }
 
-
-export default class Modal extends React.Component<ModalProps> {
-  render() {
+export  default  function Modal ({children, onClose}: ModalProps) {
     return (
-      <div className={styled.modal} onClick={this.props.onClose}>
-        <div
-          className={styled.modalContent}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button
-            className={styled.modalCross}
-            type="button"
-            aria-label='close modal'
-            onClick={this.props.onClose}
-          >
-            ❌
-          </button>
-          {this.props.children}
+        <div className={styled.modal} onClick={onClose}>
+            <div
+                className={styled.modalOverlay}
+                onClick={(e) =>
+                    e.stopPropagation()}
+            >
+                <div className={styled.modalContent}>
+                    {children}
+                </div>
+            </div>
         </div>
-      </div>
-    );
-  }
+    )
 }
+
