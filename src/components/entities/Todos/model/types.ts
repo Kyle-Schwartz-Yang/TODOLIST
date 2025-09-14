@@ -10,6 +10,11 @@ export interface TodoItem {
   color: string;
 }
 
+export type State = {
+    todos: TodoItem[];
+    todoToDelete: TodoItem | null;
+    filterColor: string;
+}
 export type Action =
     | { type: typeof ACTIONS.CREATE; payload: TodoItem }
     | { type: typeof ACTIONS.DELETE; payload: string }
@@ -22,35 +27,19 @@ export type Action =
     | { type: typeof ACTIONS.SET_FILTER_COLOR; payload: string }
     | { type: typeof ACTIONS.UPDATE; payload: { id: string; value: string } };
 
-export type State = {
-    todos: TodoItem[];
-    todoToDelete: TodoItem | null;
-    filterColor: string;
-}
-
-interface ProcessedTodos {
+type ProcessedTodos = {
     completedTodos: TodoItem[];
-    // pinnedTodos: TodoItem[];
     filterTodos: TodoItem[];
 }
 
-export interface TodoContextType {
+export type TodoContextType = {
     todos: TodoItem[];
+    todoToDelete: TodoItem | null;
+    filterColor: string;
     dispatch: Dispatch<Action>;
     processedTodos: ProcessedTodos;
-    filterColor: string;
-
-  //----------------------------------------------------------
-    todoToDelete: TodoItem | null;
-    openConfirmModal: (todo: TodoItem) => void;
-    closeConfirmModal: () => void;
-    setIsOpenModal: (value: boolean) => void;
-    isOpenModal: boolean;
-
-
-
 }
 
-//------------------------------------------------------------
+
 
 

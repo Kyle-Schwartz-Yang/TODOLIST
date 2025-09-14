@@ -13,7 +13,7 @@ export default function TodoList() {
 
   const [openSection, setOpenSection] = useState({
     active: true,
-    completed: true,
+    completed: false,
   });
 
   const toggleSection = (section: "active" | "completed") => {

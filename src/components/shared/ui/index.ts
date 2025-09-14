@@ -5,3 +5,5 @@ export { default as IconButton } from "@shared/ui/atoms/IconButton/IconButton";
 
 //-------------------------------------
 export  {default as Portal} from '@shared/ui/templates/Portal/Portal';
+export  {default as Modal} from '@shared/ui/molecules/Modal/Modal';
+

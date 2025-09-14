@@ -1,20 +1,30 @@
-import { useTodos } from "@entities/Todos/model";
-import { TodoPanel, TodoList } from "@components/entities/Todos/ui";
-import { Placeholder } from "@shared/ui";
+import TodoConfirmModal from "@features/TodoConfirmModal/TodoConfirmModal";
+import {useTodos} from "@entities/Todos/model";
+import {TodoPanel, TodoList} from "@components/entities/Todos/ui";
+import {deleteTodo, clearTodoToDelete} from "@entities/Todos/model/actions";
 
 export default function TodoWidgets() {
-  const { todos } = useTodos();
-  const hasTodos = todos.length > 0;
+    const {todoToDelete, dispatch} = useTodos();
 
-  return (
-    <main className="main">
-      <section className="todo">
-        <div className="todo__container">
-          <TodoPanel />
-          {hasTodos ? <TodoList /> : <Placeholder />}
-        </div>
-      </section>
+    const onDeleteTodo = () => {
+        if (!todoToDelete) return;
+        dispatch(deleteTodo(todoToDelete.id))
+        dispatch(clearTodoToDelete())
+    };
 
-    </main>
-  );
+    const onCanselDelete = () => {
+        dispatch(clearTodoToDelete())
+    }
+
+    return (
+        <main className="main">
+            <section className="todo">
+                <div className="todo__container">
+                    <TodoPanel/>
+                    <TodoList/>
+                </div>
+            </section>
+            {!!todoToDelete && <TodoConfirmModal onConfirm={onDeleteTodo} onCansel={onCanselDelete}/>}
+        </main>
+    );
 }

@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { ACTIONS } from "./TodoProvider";
+import {TodoItem} from "@entities/Todos/model/types";
 
 export const createTodo = (text: string) => {
   return {
@@ -50,4 +51,51 @@ export const updFilterColor = (color: string) => ({
     type: ACTIONS.SET_FILTER_COLOR,
     payload: color,
 })
+
+export const deleteTodo = (id: string) => ({
+    type: ACTIONS.DELETE,
+    payload: id,
+})
+
+export const selectTodoToDelete  = (todo: TodoItem) => ({
+    type: ACTIONS.SET_TODO_TO_DELETE,
+    payload: todo,
+})
+
+
+export const clearTodoToDelete  = () => ({
+    type: ACTIONS.SET_TODO_TO_DELETE,
+    payload: null,
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,21 +1,25 @@
 # TODOLIST
 
-- [React, Typescript, VITE]
-- [uuid, react-toastify]
+- [React, TypeScript, VITE]
+- [uuid, react-toastify, react-icons]
 - [React Context]
 
-> 💡 FSD principles are not respected
+> 💡 FSD principles are not respected [?Optional]
 
 ### In this project 🎬
 
-- Додавання задач ✔
-- Видалення задач ✔
-- Редагування задач ✔
-- LocalStorage [?Optional] ✔
+- Create a task ✔
+- Delete a task ✔
+- Edit a task ✔
+- LocalStorage ✔
 - Counter todos [?Optional] ✔
+- List complete todos [?Optional] ✔
+- Toggle the active todos ✔
+- Toggle the completed todos [?Optional] ✔
 - Confirm Modal [?Optional] ✔
 - Pinned [?Optional] ✔
-- List complete todos [?Optional] ✔
+- Pinned limit [?Optional] ✔
+- Color filtering [?Optional] ✔
 
 ### START APP 🚀
 
