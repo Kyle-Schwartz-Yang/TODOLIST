@@ -1,6 +1,6 @@
 import { FaThumbtack, FaTrash, FaEdit } from "react-icons/fa";
 import { Check, Palette } from "@entities/Todos/ui/TodoItem/ui";
-
+import {useMemo} from "react";
 import { toast } from "react-toastify";
 import useConfetti from "@shared/hooks/useConfetti/useConfetti";
 import { useTodos } from "@entities/Todos/model";
@@ -10,8 +10,11 @@ import { TodoItem as TodoItemType } from "@entities/Todos/model/types";
 import {
   toggleEditing,
   togglePinned,
+    deletePinned,
   changeColor,
 } from "@entities/Todos/model/actions";
+
+// import TodoConfirmModal from "@features/TodoConfirmModal/TodoConfirmModal";
 
 import styled from "./TodoItem.module.scss";
 
@@ -34,12 +37,13 @@ export default function TodoItem({
 }: Props) {
 
   const { launchConfetti } = useConfetti();
-  const { openConfirmTaskModal, dispatch, processedTodos } = useTodos();
+  const { openConfirmModal, dispatch, processedTodos, todos } = useTodos();
   const filterTodos = processedTodos?.filterTodos ?? [];
 
   const onToggleComplete = (id: string) => {
     dispatch(toggleComplete(id));
     showDoneFeedback();
+    dispatch(deletePinned(id));
   };
 
   const showDoneFeedback = () => {
@@ -47,6 +51,11 @@ export default function TodoItem({
     if (filterTodos.length === 1) launchConfetti();
   };
 
+  const pinnedCount = useMemo(() => {
+      return todos.filter(item => item.isPinned).length
+  },[todos])
+
+    console.log(pinnedCount);
 
   return (
     <li
@@ -67,6 +76,8 @@ export default function TodoItem({
         type="button"
         className={`${styled.itemPin} ${isPinned ? styled.active : ""}`}
         onClick={() => dispatch(togglePinned(id))}
+        style={{display: !isPinned && pinnedCount >= 3 ? 'none' : "inline-block"}}
+        disabled={complete}
       >
         <FaThumbtack />
       </button>
@@ -87,7 +98,7 @@ export default function TodoItem({
           </IconButton>
           <IconButton
             className={styled.itemIconDelete}
-            onClick={() => openConfirmTaskModal(todo)}
+            onClick={() => openConfirmModal(todo)}
           >
             <FaTrash />
           </IconButton>

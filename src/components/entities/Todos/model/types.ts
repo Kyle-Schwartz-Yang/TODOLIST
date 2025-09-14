@@ -16,6 +16,7 @@ export type Action =
     | { type: typeof ACTIONS.DONE; payload: string }
     | { type: typeof ACTIONS.EDIT; payload: string }
     | { type: typeof ACTIONS.PINNED; payload: string }
+    | { type: typeof ACTIONS.PINNED_OFF; payload: string }
     | { type: typeof ACTIONS.PALETTE; payload: { id: string; color: string } }
     | { type: typeof ACTIONS.SET_FILTER_COLOR; payload: string }
     | { type: typeof ACTIONS.UPDATE; payload: { id: string; value: string } };
@@ -35,14 +36,15 @@ export interface TodoContextType {
     todos: TodoItem[];
     dispatch: Dispatch<Action>;
     processedTodos: ProcessedTodos;
-    // deleteTodo: () => void;
     filterColor: string;
 
   //----------------------------------------------------------
-
-    isOpenModal: boolean;
+    todoToDelete: TodoItem | null;
+    openConfirmModal: (todo: TodoItem) => void;
+    closeConfirmModal: () => void;
     setIsOpenModal: (value: boolean) => void;
-    openConfirmTaskModal: (todo: TodoItem) => void;
+    isOpenModal: boolean;
+
 
 
 }

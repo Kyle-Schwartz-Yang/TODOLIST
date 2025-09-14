@@ -29,10 +29,8 @@
     transform: scale(1.5);
   }
 
-
   & svg {
     fill: #548af7;
-    //pointer-events: none !important;
   }
 }
 
@@ -46,7 +44,7 @@
   font-weight: bold;
   position: relative;
   padding-left: 3.5rem;
-  //border: 1px solid red;
+  
   &:before {
     content: 'i';
     background-color: #548af7;

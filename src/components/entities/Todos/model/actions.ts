@@ -30,6 +30,11 @@ export const togglePinned = (id: string) => ({
   payload: id,
 });
 
+export const deletePinned = (id: string) => ({
+  type: ACTIONS.PINNED_OFF,
+  payload: id,
+});
+
 export const changeColor = (id: string, color: string) => ({
   type: ACTIONS.PALETTE,
   payload: { id, color },

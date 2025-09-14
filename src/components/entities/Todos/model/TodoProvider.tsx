@@ -16,6 +16,7 @@ export const ACTIONS = {
     EDIT: "TOGGLE_EDIT",
     UPDATE: "UPDATE_TODO",
     PINNED: "TOGGLE_PINNED",
+    PINNED_OFF: "DELETE_PINNED",
     PALETTE: "SET_COLOR",
     SET_FILTER_COLOR: "SET_FILTER_COLOR",
 } as const;
@@ -64,6 +65,15 @@ function reducer(state: State, action: Action): State {
             : item
         ),
       };
+    case ACTIONS.PINNED_OFF:
+      return {
+        ...state,
+        todos: state.todos.map((item) =>
+          item.id === action.payload
+            ? { ...item, isPinned: false }
+            : item
+        ),
+      };
     case ACTIONS.UPDATE:
       return {
         ...state,
@@ -108,15 +118,25 @@ export function TodoProvider({ children }: { children: ReactNode; }) {
   const [{ todos, filterColor }, dispatch] = useReducer(reducer, initialState, init);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [taskIdToDelete, setTaskIdToDelete] = useState<TodoItem | null>(null);
+  const [todoToDelete, setTodoToDelete] = useState<TodoItem | null>(null);
 
-  console.log(taskIdToDelete);
+    useEffect(() => {
+        // localStorage.clear()
+        localStorage.setItem('todos', JSON.stringify(todos))
+        localStorage.setItem('filter', JSON.stringify(filterColor))
+    }, [todos, filterColor])
 
-  useEffect(() => {
-      // localStorage.clear()
-      localStorage.setItem('todos', JSON.stringify(todos))
-      localStorage.setItem('filter', JSON.stringify(filterColor))
-  }, [todos, filterColor])
+
+    const openConfirmModal = (todo: TodoItem) => {
+        setTodoToDelete(todo);
+        setIsOpenModal(true);
+    };
+
+    const closeConfirmModal = () => {
+        setTodoToDelete(null);
+        setIsOpenModal(false);
+    }
+
 
   // useEffect(() => {
   //   const handleKeyDown = (event: KeyboardEvent) => {
@@ -137,22 +157,6 @@ export function TodoProvider({ children }: { children: ReactNode; }) {
   // }, [isOpenModal]);
 
 
-  const openConfirmTaskModal = (todo: TodoItem) => {
-    setTaskIdToDelete(todo);
-    setIsOpenModal(true);
-  };
-
-  // const deleteTodo = () => {
-  //   console.log("GO 2");
-  //   dispatch({ type: ACTIONS.DELETE, payload: taskIdToDelete.id });
-  //
-  //   setTaskIdToDelete(null);
-  //   setIsOpenModal(false);
-  //   toast.info("DELETE!");
-  // };
-
-
-
     const processedTodos = useMemo(() => {
         const completedTodos = todos.filter(item => item.complete);
         const activeTodos = todos.filter(item => !item.complete);
@@ -167,7 +171,6 @@ export function TodoProvider({ children }: { children: ReactNode; }) {
     }, [todos, filterColor]);
 
 
-
   const value: TodoContextType = {
     todos,
     filterColor,
@@ -176,8 +179,10 @@ export function TodoProvider({ children }: { children: ReactNode; }) {
 
     // deleteTodo,
     isOpenModal,
+    todoToDelete,
     setIsOpenModal,
-    openConfirmTaskModal,
+    openConfirmModal,
+    closeConfirmModal,
   };
 
   return (

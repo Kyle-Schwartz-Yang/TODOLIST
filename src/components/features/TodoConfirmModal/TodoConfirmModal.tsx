@@ -6,12 +6,18 @@ import { Portal } from "@shared/ui";
 import Modal from "@shared/ui/molecules/modal/Modal";
 
 import styled from "./TodoConfirmModal.module.scss";
-
+import { ACTIONS } from "@entities/Todos/model/TodoProvider";
 
 
 export default function TodoConfirmModal() {
-  const { isOpenModal, setIsOpenModal } = useTodos();
+  const { isOpenModal, setIsOpenModal, closeConfirmModal, todoToDelete, dispatch } = useTodos();
 
+
+    const onDeleteTodo = () => {
+        if (!todoToDelete) return;
+        dispatch({ type: ACTIONS.DELETE, payload: todoToDelete.id });
+        closeConfirmModal();
+    };
 
   return (
     <Portal>
@@ -29,7 +35,10 @@ export default function TodoConfirmModal() {
                   <p className={styled.text}>Are you sure you want to delete ?</p>
               </div>
             <div className={styled.buttons}>
-              <button className={styled.buttonsDelete} >
+              <button
+                  className={styled.buttonsDelete}
+                  onClick={onDeleteTodo}
+              >
                 Delete
               </button>
               <button
