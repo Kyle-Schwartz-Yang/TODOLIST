@@ -13,6 +13,7 @@ export interface TodoItem {
 export type Action =
     | { type: typeof ACTIONS.CREATE; payload: TodoItem }
     | { type: typeof ACTIONS.DELETE; payload: string }
+    | { type: typeof ACTIONS.SET_TODO_TO_DELETE; payload: TodoItem | null }
     | { type: typeof ACTIONS.DONE; payload: string }
     | { type: typeof ACTIONS.EDIT; payload: string }
     | { type: typeof ACTIONS.PINNED; payload: string }
@@ -23,6 +24,7 @@ export type Action =
 
 export type State = {
     todos: TodoItem[];
+    todoToDelete: TodoItem | null;
     filterColor: string;
 }
 

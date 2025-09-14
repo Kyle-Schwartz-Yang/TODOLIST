@@ -3,7 +3,7 @@
 import { useTodos } from "@entities/Todos/model";
 import { ImCross } from "react-icons/im";
 import { Portal } from "@shared/ui";
-import Modal from "@shared/ui/molecules/modal/Modal";
+import Modal from "@shared/ui/molecules/Modal/Modal";
 
 import styled from "./TodoConfirmModal.module.scss";
 import { ACTIONS } from "@entities/Todos/model/TodoProvider";
@@ -11,7 +11,6 @@ import { ACTIONS } from "@entities/Todos/model/TodoProvider";
 
 export default function TodoConfirmModal() {
   const { isOpenModal, setIsOpenModal, closeConfirmModal, todoToDelete, dispatch } = useTodos();
-
 
     const onDeleteTodo = () => {
         if (!todoToDelete) return;

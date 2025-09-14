@@ -12,6 +12,7 @@ import { State, Action, TodoItem, TodoContextType } from "@entities/Todos/model/
 export const ACTIONS = {
     CREATE: "CREATE_TODO",
     DELETE: "DELETE_TODO",
+    SET_TODO_TO_DELETE: "SET_TODO_TO_DELETE",
     DONE: "TOGGLE_COMPLETE",
     EDIT: "TOGGLE_EDIT",
     UPDATE: "UPDATE_TODO",
@@ -23,6 +24,7 @@ export const ACTIONS = {
 
 const initialState: State = {
     todos: [],
+    todoToDelete: null,
     filterColor: "default",
 };
 
@@ -38,6 +40,11 @@ function reducer(state: State, action: Action): State {
         ...state,
         todos: state.todos.filter((item) => item.id !== action.payload),
       };
+      case ACTIONS.SET_TODO_TO_DELETE:
+          return {
+              ...state,
+              todoToDelete: action.payload
+          }
     case ACTIONS.DONE:
       return {
         ...state,

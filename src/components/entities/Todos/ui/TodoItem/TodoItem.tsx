@@ -55,7 +55,9 @@ export default function TodoItem({
       return todos.filter(item => item.isPinned).length
   },[todos])
 
-    console.log(pinnedCount);
+const onTodoToDelete = (todo: TodoItemType) => {
+   dispatch({type: "SET_TODO_TO_DELETE", payload: todo})
+}
 
   return (
     <li
@@ -99,6 +101,7 @@ export default function TodoItem({
           <IconButton
             className={styled.itemIconDelete}
             onClick={() => openConfirmModal(todo)}
+              // onClick={() => onTodoToDelete(todo)}
           >
             <FaTrash />
           </IconButton>
