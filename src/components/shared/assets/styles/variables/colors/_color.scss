@@ -2,18 +2,31 @@
 // $primary: #00a2ff;
 // $secondory: #f5f533;
 
-$black: #000000;
-$white: #ffffff;
+// FONT COLOR
+
 // --------------------------------
-$main-color: #f76fb5;
-$dark: #151515;
-$grey: #5c5c5c;
-$bg-color: #1d1d1d;
+// BG COLOR
+
+$main: #1d1d1d;
+
+:root {
+  --bg-color: #1d1d1d;
+  --text-color: #ffffff;
+  --border-color: #ffffff;
+  --icon-color: #ffffff;
+}
 
 // ---------------------------------------------
 
-//=====================================================
 $accent: #f76fb5;
-$silver: #c0c0c0;
-$attention: #ffb74d;
 $success: #5d9948;
+
+$dark: #151515;
+$white: #ffffff;
+$black: #000000;
+$yellow: #ffa500;
+$red: #ff4d4d;
+$blue: #4da6ff;
+$purple: #800080;
+
+//=====================================================

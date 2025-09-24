@@ -1,0 +1,36 @@
+@use "@shared/assets/styles/variables/" as *;
+
+.filter {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  &Btn {
+    padding: 5px 12px;
+    font-size: 14px;
+    border: 2px solid $white;
+    background-color: $dark;
+    color: $white;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transform: scale(1);
+    transition: background-color 0.15s, border-color 0.15s, transform 0.15s;
+  }
+
+  &BtnActive {
+    background-color: $accent;
+  }
+
+  &Btn:hover {
+    border: 2px solid $accent;
+  }
+
+  &Btn:active {
+    transform: scale(0.9);
+  }
+
+  &Btn:focus {
+    outline: none;
+  }
+}

@@ -1,14 +1,11 @@
-import React from "react";
-import stylesd from "./Footer.module.scss";
+import style from "./Footer.module.scss";
 
-export default class Footer extends React.Component {
-  render() {
-    return (
-      <footer className={stylesd.footer}>
-        <div className="footer__container">
-          <span>Made with love 🤍</span>
-        </div>
-      </footer>
-    );
-  }
+export default function Footer() {
+  return (
+    <footer className={style.footer}>
+      <div className="footer__container">
+        <h2 className={style.footerTitle}>Made with love 🤍</h2>
+      </div>
+    </footer>
+  );
 }

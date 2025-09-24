@@ -1,16 +1,23 @@
-@use "./components/shared/assets/styles/config"; // null-style, fonts,
-@use "./components/shared/assets/styles/variables" as *;
-@use "./components/shared/assets/styles/mixins" as *;
+@use "@shared/assets/styles/config"; // null-style, fonts,
+@use "@shared/assets/styles/variables" as *;
+@use "@shared/assets/styles/mixins" as *;
 
 html {
   font-size: $f-size-rem;
 }
 
+body.light {
+  --bg-color: #fff;
+  --text-color: #000;
+  --border-color: #000;
+  --icon-color: #000;
+}
+
 body {
   font-family: $font-face;
   font-size: $f-size-default;
-  color: $white;
-  background-color: $bg-color;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 #root {
@@ -30,14 +37,14 @@ body {
 }
 
 .visually-hidden {
-  position: absolute; /* виносимо елемент за межі потоку */
-  width: 1px; /* мінімальна ширина */
-  height: 1px; /* мінімальна висота */
+  position: absolute;
+  width: 1px;
+  height: 1px;
   padding: 0;
-  margin: -1px; /* прибираємо з layout */
-  overflow: hidden; /* ховаємо вміст */
-  clip: rect(0, 0, 0, 0); /* старий спосіб обрізки */
-  clip-path: inset(50%); /* сучасний спосіб обрізки */
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   border: 0;
-  white-space: nowrap; /* запобігаємо переносу */
+  white-space: nowrap;
 }

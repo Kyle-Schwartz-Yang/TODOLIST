@@ -1,15 +1,12 @@
 @use "@shared/assets/styles/variables/" as *;
 
 .title {
-  color: $silver;
-  letter-spacing: 0.5rem;
   cursor: pointer;
+  letter-spacing: 0.5rem;
 
   & span {
-    display: inline-block;
     color: $accent;
     font-weight: 900;
-    font-size: 2.5rem;
   }
 
   &:not(:last-child) {

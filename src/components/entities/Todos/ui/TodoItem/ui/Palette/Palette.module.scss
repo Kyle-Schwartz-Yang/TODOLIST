@@ -1,52 +1,44 @@
+@use "@shared/assets/styles/variables" as *;
+
 .palette {
   display: flex;
-  gap: 10px;
-}
+  gap: 1rem;
 
-.btn {
-  width: 2.5rem;
-  height: 2.5rem;
-  border: none; // прибираємо чорний бордер, зробимо тінь
-  cursor: pointer;
+  &Button {
+    cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+    outline: none;
+    border: none;
+    border: 3px solid var(--border-color);
+    transform: scale(1);
+    transition: all 0.2s ease-in-out;
 
-  transition: all 0.2s ease-in-out; // плавна анімація
-  // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); // тінь для кнопки
-  outline: none;
+    &:hover {
+      transform: scale(1.1);
+    }
 
-  background-color: #171717;
-
-  // border: 1px solid white;
-  transition: 0.1s ease-in-out;
-  // border-radius: 10px;
-
-  outline: none;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-
-  &:active {
-    transform: scale(0.9); // ефект натискання
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    &:active {
+      transform: scale(0.9);
+    }
   }
 }
 
 .default {
-  background-color: #000;
-  // border: 2px solid white;
+  background-color: $black;
 }
 
 .red {
-  background-color: #ff4d4d;
+  background-color: $red;
 }
 .yellow {
-  background-color: #ffa500;
+  background-color: $yellow;
 }
 .blue {
-  background-color: #4da6ff;
+  background-color: $blue;
 }
 .purple {
-  background-color: #800080;
+  background-color: $purple;
 }
 
 .default,
@@ -62,21 +54,22 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%) scale(0); // початково трохи зліва
+    transform: translate(-50%, -50%) scale(0);
     width: 0.75rem;
     height: 0.75rem;
     background-color: transparent;
     border-radius: 50%;
-    transition: all 0.3s ease; // плавна анімація
+    transition: all 0.3s ease;
   }
 
   &.active {
-    border: 2px solid white;
+    border: 2px solid $white;
+
     opacity: 1;
   }
 
   &.active::after {
     transform: translate(-50%, -50%) scale(1);
-    background-color: white;
+    background-color: $white;
   }
 }

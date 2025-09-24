@@ -3,6 +3,7 @@
 
 .item {
   @include mix.flexbox(flex, space-between, null, column);
+  box-shadow: 0px 1px 10px rgb(0, 0, 0);
   position: relative;
   border-radius: 1rem;
   min-height: 15.5rem;
@@ -14,43 +15,48 @@
   }
 
   &Complete {
-    opacity: 0.3;
+    opacity: 0.5;
     text-decoration: line-through;
     border: 2px solid $success !important;
   }
 
   &Buttons {
     @include mix.flexbox(flex, space-between, flex-end);
-
   }
   &IconEdit,
   &IconDelete {
+    border: 2px solid var(--border-color);
+
     & svg {
       width: 20px;
       height: 20px;
+      transform: scale(1);
+
+      transition: all 0.15s ease;
     }
 
     &:hover svg {
-      fill: #fff;
+      transform: scale(1.2);
     }
   }
 
   &IconEdit {
     & svg {
-      fill: #ffb74d;
+      fill: $yellow;
     }
+
     &:hover {
-      border: 2px solid #ffb74d;
+      border: 2px solid $yellow;
     }
   }
 
   &IconDelete {
     & svg {
-      fill: silver;
+      fill: $red;
     }
 
     &:hover {
-      border: 2px solid red;
+      border: 2px solid $red;
     }
   }
 
@@ -64,33 +70,29 @@
       width: 2rem;
       height: 2rem;
       transform: rotate(35deg);
-      fill: white;
+      fill: var(--icon-color);
       transition: transform 0.3s ease, fill 0.3s ease;
     }
 
     &.active svg {
-      fill: #f76fb5;
+      fill: $accent;
     }
   }
 }
 
 .default {
-  box-shadow: 0px 1px 10px rgb(0, 0, 0);
-  border: 2px solid #000;
+  border: 2px solid $black;
 }
 
 .red {
-  border: 2px solid #ff4d4d;
+  border: 2px solid $red;
 }
 .yellow {
-  // background-color: #ffa500;
-  border: 2px solid #ffa500;
+  border: 2px solid $yellow;
 }
 .blue {
-  // background-color: #4da6ff;
-  border: 2px solid #4da6ff;
+  border: 2px solid $blue;
 }
 .purple {
-  // background-color: #800080;
-  border: 2px solid #800080;
+  border: 2px solid $purple;
 }
