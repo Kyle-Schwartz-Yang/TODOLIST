@@ -20,6 +20,7 @@
 - Pinned [?Optional] ✔
 - Pinned limit [?Optional] ✔
 - Color filtering [?Optional] ✔
+- Dark theme ✔
 
 ### START APP 🚀
 
