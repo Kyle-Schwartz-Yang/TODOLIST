@@ -92,7 +92,7 @@ export default function TodoItem({
           color={color}
         />
 
-        <div style={{ display: "flex", gap: "2rem" }}>
+        <div style={{ display: "flex", gap: "2rem", flexDirection: "column" }}>
           <IconButton
             className={styled.itemIconEdit}
             onClick={() => dispatch(toggleEditing(id))}

@@ -4,6 +4,7 @@
 .edit {
   font-size: 2.5rem;
   border-radius: 1rem;
+
   border: 2px solid $yellow;
 
   &:not(:last-child) {
@@ -20,6 +21,7 @@
   &Input {
     color: $yellow;
     width: 100%;
+    padding: 2rem;
     font-size: 2.5rem;
   }
 

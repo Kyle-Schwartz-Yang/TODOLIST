@@ -5,6 +5,10 @@
   gap: 1rem;
   flex-wrap: wrap;
 
+  @media (max-width: 475px) {
+    justify-content: center;
+  }
+
   &Btn {
     padding: 5px 12px;
     font-size: 14px;

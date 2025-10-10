@@ -3,12 +3,30 @@
 
 .item {
   @include mix.flexbox(flex, space-between, null, column);
+  gap: 2rem;
   box-shadow: 0px 1px 10px rgb(0, 0, 0);
   position: relative;
   border-radius: 1rem;
   min-height: 15.5rem;
   padding: 2rem;
   font-size: 2.5rem;
+
+  &.default {
+    border: 2px solid $black;
+  }
+
+  &.red {
+    border: 2px solid $red;
+  }
+  &.yellow {
+    border: 2px solid $yellow;
+  }
+  &.blue {
+    border: 2px solid $blue;
+  }
+  &.purple {
+    border: 2px solid $purple;
+  }
 
   &:not(:last-child) {
     margin-bottom: 3rem;
@@ -78,21 +96,4 @@
       fill: $accent;
     }
   }
-}
-
-.default {
-  border: 2px solid $black;
-}
-
-.red {
-  border: 2px solid $red;
-}
-.yellow {
-  border: 2px solid $yellow;
-}
-.blue {
-  border: 2px solid $blue;
-}
-.purple {
-  border: 2px solid $purple;
 }

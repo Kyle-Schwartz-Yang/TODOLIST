@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Check({ title, id, complete, onToggle }: Props) {
-  const displayTitle = title.length > 500 ? title.slice(0, 500) + "..." : title;
+  const displayTitle = title.length > 150 ? title.slice(0, 150) + "..." : title;
 
   return (
     <div className={style.checkbox}>
