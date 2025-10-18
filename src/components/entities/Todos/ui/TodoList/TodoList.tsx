@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Placeholder, EmptyCompleted } from "@shared/ui";
-import { TodoListSection, TodoFilter } from "@entities/Todos/ui/TodoList/ui";
+import {
+  TodoCollapsibleSection,
+  TodoFilter,
+} from "@components/entities/Todos/ui/TodoList/ui";
 import { useTodos, updFilterColor } from "@entities/Todos/model";
 
 export default function TodoList() {
@@ -27,14 +30,14 @@ export default function TodoList() {
         onSelect={(c) => dispatch(updFilterColor(c))}
       ></TodoFilter>
 
-      <TodoListSection
+      <TodoCollapsibleSection
         title="Active"
         todos={filterTodos}
         EmptyComponent={<Placeholder />}
         open={openSection}
         onClick={toggleSection}
       />
-      <TodoListSection
+      <TodoCollapsibleSection
         title="Completed"
         todos={completedTodos}
         EmptyComponent={<EmptyCompleted />}

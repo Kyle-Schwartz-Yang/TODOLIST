@@ -34,16 +34,18 @@ export default function TodoItem({
   color,
   todo,
 }: Props) {
-  const { launchConfetti } = useConfetti();
   const { dispatch, processedTodos, todos } = useTodos();
   const filterTodos = processedTodos?.filterTodos ?? [];
+  const { launchConfetti } = useConfetti();
 
-  console.log(filterTodos.length);
-
-  const onToggleComplete = (id: string) => {
+  const onToggleComplete = (id: string, complete: boolean) => {
     dispatch(toggleComplete(id));
-    showDoneFeedback();
+
     dispatch(deletePinned(id));
+
+    if (!complete) {
+      showDoneFeedback();
+    }
   };
 
   const showDoneFeedback = () => {
@@ -51,8 +53,8 @@ export default function TodoItem({
   };
 
   const pinnedCount = useMemo(() => {
-    return todos.filter((item) => item.isPinned).length;
-  }, [todos]);
+    return filterTodos.filter((item) => item.isPinned).length;
+  }, [filterTodos]);
 
   const askDelete = (todo: TodoItemType) => {
     dispatch(selectTodoToDelete(todo));
@@ -70,7 +72,7 @@ export default function TodoItem({
         title={title}
         id={id}
         complete={complete}
-        onToggle={() => onToggleComplete(id)}
+        onToggle={() => onToggleComplete(id, complete)}
       />
 
       <button

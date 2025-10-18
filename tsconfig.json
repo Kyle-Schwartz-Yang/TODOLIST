@@ -20,7 +20,8 @@
       "@shared/*": ["components/shared/*"],
       "@widgets/*": ["components/widgets/*"],
       "@features/*": ["components/features/*"],
-      "@entities/*": ["components/entities/*"]
+      "@entities/*": ["components/entities/*"],
+      "@sharedOriginal": ["/shared/*"]
     },
 
     "rootDir": "./src",
