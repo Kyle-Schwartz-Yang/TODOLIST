@@ -15,13 +15,21 @@
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
-      "@app/*": ["components/app/*"],
-      "@pages/*": ["components/pages/*"],
-      "@shared/*": ["components/shared/*"],
+      "@app/*": ["app/*"],
+      "@shared/*": ["shared/*"],
+      // ======================================
+
       "@widgets/*": ["components/widgets/*"],
       "@features/*": ["components/features/*"],
       "@entities/*": ["components/entities/*"],
-      "@sharedOriginal": ["/shared/*"]
+
+      // ======================================
+
+      "@atoms": ["components/atoms"],
+      "@molecules/*": ["components/molecules/*"],
+      "@organisms": ["components/organisms"],
+      "@templates": ["components/atoms"],
+      "@pages/*": ["components/pages/*"]
     },
 
     "rootDir": "./src",

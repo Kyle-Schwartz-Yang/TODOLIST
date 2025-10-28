@@ -1,7 +1,10 @@
-import TodoConfirmModal from "@features/TodoConfirmModal/TodoConfirmModal";
-import { useTodos } from "@entities/Todos/model";
-import { TodoPanel, TodoList } from "@components/entities/Todos/ui";
-import { deleteTodo, clearTodoToDelete } from "@entities/Todos/model/actions";
+import TodoConfirmModal from "@components/molecules/TodoConfirmModal/TodoConfirmModal";
+import { useTodos } from "@app/context/todo";
+
+import TodoPanel from "@components/organisms/TodoPanel/TodoPanel";
+import TodoList from "@components/organisms/TodoList/TodoList";
+
+import { deleteTodo, clearTodoToDelete } from "@app/context/todo/actions";
 import { toast } from "react-toastify";
 
 export default function TodoWidgets() {

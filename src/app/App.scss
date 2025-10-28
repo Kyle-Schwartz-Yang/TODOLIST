@@ -1,0 +1,13 @@
+// @use "@shared/assets/styles/variables/" as *;
+// @use "@shared/assets/styles/mixins/" as *;
+// @use "@shared/assets/styles/placeholders";
+
+.todo {
+  padding: 5rem 0;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
